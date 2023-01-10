@@ -1,0 +1,18 @@
+# server config
+server:
+  ip: 127.0.0.1
+  port: 8081
+# mysql config
+mysql:
+  user: root
+  password: root
+  address: 127.0.0.1
+  port: 3306
+  dbname: chat_server
+  config: charset=utf8&parseTime=True&loc=Local
+# redis config
+redis:
+  address: 127.0.0.1:6379
+# log config
+log:
+  filepath: log/log.log
