@@ -49,3 +49,7 @@ func GetConfigIntSlice(target string) []int {
 func GetConfigStringSlice(target string) []string {
 	return getConfigResolve().Viper.GetStringSlice(target)
 }
+
+func GetConfigInt(target string) int {
+	return getConfigResolve().Viper.GetInt(target)
+}

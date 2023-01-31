@@ -2,8 +2,8 @@ package utils
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/lutasam/GIN_LUTA/biz/bo"
-	"github.com/lutasam/GIN_LUTA/biz/common"
+	"github.com/lutasam/doctors/biz/bo"
+	"github.com/lutasam/doctors/biz/common"
 )
 
 // Response DIY your Response based on bo.BaseResponse
@@ -34,8 +34,14 @@ func ResponseServerError(c *gin.Context, err common.Error) {
 	Response(c, common.SERVERERRORCODE, err.Code(), err.Error(), nil)
 }
 
-// ResponseError returns a ServerErrorResponse.
-// User ResponseServerError func and ResponseClientError func to distinguish between them.
-func ResponseError(c *gin.Context, err common.Error) {
-	ResponseServerError(c, err)
+// ResponseError returns an Error
+// This function will automatically determine what error type it is, so just use it.
+func ResponseError(c *gin.Context, err error) {
+	if IsClientError(err) {
+		ResponseClientError(c, err.(common.Error))
+		return
+	} else {
+		ResponseServerError(c, err.(common.Error))
+		return
+	}
 }

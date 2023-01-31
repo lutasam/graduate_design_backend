@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/lutasam/GIN_LUTA/biz/utils"
+	"github.com/lutasam/doctors/biz/utils"
 )
 
 func main() {

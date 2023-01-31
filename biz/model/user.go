@@ -6,15 +6,17 @@ import (
 )
 
 type User struct {
-	ID        uint64         `gorm:"column:id"`
-	Username  string         `gorm:"column:username"`
-	Password  string         `gorm:"column:password"`
-	NickName  string         `gorm:"column:nickname"`
-	Avatar    string         `gorm:"column:avatar"`
-	Sign      string         `gorm:"column:sign"`
-	CreatedAt time.Time      `gorm:"column:created_at"`
-	UpdatedAt time.Time      `gorm:"column:updated_at"`
-	DeletedAt gorm.DeletedAt `gorm:"column:deleted_at"`
+	ID            uint64         `gorm:"column:id"`
+	Email         string         `gorm:"column:email"`
+	PhoneNumber   string         `gorm:"column:phone_number"`
+	Password      string         `gorm:"column:password"`
+	Name          string         `gorm:"column:name"`
+	Birthday      time.Time      `gorm:"column:birthday"`
+	Avatar        string         `gorm:"column:avatar"`
+	CharacterType int            `gorm:"column:character_type"`
+	CreatedAt     time.Time      `gorm:"column:created_at"`
+	UpdatedAt     time.Time      `gorm:"column:updated_at"`
+	DeletedAt     gorm.DeletedAt `gorm:"column:deleted_at"`
 }
 
 func (User) TableName() string {

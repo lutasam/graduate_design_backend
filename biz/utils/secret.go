@@ -5,7 +5,7 @@ import (
 	"crypto/aes"
 	"crypto/cipher"
 	"encoding/base64"
-	"github.com/lutasam/GIN_LUTA/biz/common"
+	"github.com/lutasam/doctors/biz/common"
 	"golang.org/x/crypto/bcrypt"
 )
 

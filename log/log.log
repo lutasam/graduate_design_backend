@@ -1,5 +1,29 @@
-[GIN-debug] GET    /demo/ping                --> github.com/lutasam/GIN_LUTA/biz/handler.(*DemoController).Ping-fm (3 handlers)
-[GIN-debug] POST   /demo/hello               --> github.com/lutasam/GIN_LUTA/biz/handler.(*DemoController).Hello-fm (3 handlers)
+[GIN-debug] POST   /login/login              --> github.com/lutasam/doctors/biz/handler.(*LoginController).Login-fm (3 handlers)
+[GIN-debug] POST   /login/apply_register     --> github.com/lutasam/doctors/biz/handler.(*LoginController).ApplyRegister-fm (3 handlers)
+[GIN-debug] POST   /login/active_user        --> github.com/lutasam/doctors/biz/handler.(*LoginController).ActiveUser-fm (3 handlers)
+[GIN-debug] POST   /login/reset_password     --> github.com/lutasam/doctors/biz/handler.(*LoginController).ResetPassword-fm (3 handlers)
+[GIN-debug] POST   /login/active_reset_password --> github.com/lutasam/doctors/biz/handler.(*LoginController).ActiveResetPassword-fm (3 handlers)
+[GIN-debug] POST   /login/apply_change_user_email --> github.com/lutasam/doctors/biz/handler.(*LoginController).ApplyChangeUserEmail-fm (4 handlers)
+[GIN-debug] POST   /login/active_change_user_email --> github.com/lutasam/doctors/biz/handler.(*LoginController).ActiveChangeUserEmail-fm (4 handlers)
+[GIN-debug] POST   /talk/get_talked_users    --> github.com/lutasam/doctors/biz/handler.(*TalkController).GetTalkedUsers-fm (4 handlers)
+[GIN-debug] GET    /talk/ws/:channel_id      --> github.com/lutasam/doctors/biz/handler.RegisterTalkRouter.func1 (4 handlers)
+[GIN-debug] POST   /user/update_user_info    --> github.com/lutasam/doctors/biz/handler.(*UserController).UpdateUserInfo-fm (4 handlers)
+[GIN-debug] POST   /user/take_user_info      --> github.com/lutasam/doctors/biz/handler.(*UserController).TakeUserInfo-fm (4 handlers)
+[GIN-debug] POST   /user/find_users          --> github.com/lutasam/doctors/biz/handler.(*UserController).FindUsers-fm (4 handlers)
+[GIN-debug] POST   /user/delete_user         --> github.com/lutasam/doctors/biz/handler.(*UserController).DeleteUser-fm (4 handlers)
+[GIN-debug] POST   /doctor/take_doctor_info  --> github.com/lutasam/doctors/biz/handler.(*DoctorController).TakeDoctorInfo-fm (4 handlers)
+[GIN-debug] POST   /doctor/update_doctor_info --> github.com/lutasam/doctors/biz/handler.(*DoctorController).UpdateDoctorInfo-fm (4 handlers)
+[GIN-debug] POST   /doctor/find_doctors      --> github.com/lutasam/doctors/biz/handler.(*DoctorController).FindDoctors-fm (4 handlers)
+[GIN-debug] POST   /doctor/delete_doctor     --> github.com/lutasam/doctors/biz/handler.(*DoctorController).DeleteDoctor-fm (4 handlers)
+[GIN-debug] POST   /doctor/active_doctor     --> github.com/lutasam/doctors/biz/handler.(*DoctorController).ActiveDoctor-fm (4 handlers)
+[GIN-debug] POST   /inquiry/create_inquiry   --> github.com/lutasam/doctors/biz/handler.(*InquiryController).CreateInquiry-fm (4 handlers)
+[GIN-debug] POST   /inquiry/delete_inquiry   --> github.com/lutasam/doctors/biz/handler.(*InquiryController).DeleteInquiry-fm (4 handlers)
+[GIN-debug] POST   /inquiry/upload_reply_suggestion --> github.com/lutasam/doctors/biz/handler.(*InquiryController).UploadReplySuggestion-fm (4 handlers)
+[GIN-debug] POST   /inquiry/find_inquiry_titles --> github.com/lutasam/doctors/biz/handler.(*InquiryController).FindInquiryTitles-fm (4 handlers)
+[GIN-debug] POST   /inquiry/find_inquiry     --> github.com/lutasam/doctors/biz/handler.(*InquiryController).FindInquiry-fm (4 handlers)
 [GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
 Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
 [GIN-debug] Listening and serving HTTP on :8081
+[GIN] 2023/01/30 - 22:47:12 | 200 |     68.3887ms |             ::1 | POST     "/login/login"
+[GIN] 2023/01/30 - 22:52:40 | 200 |         3m28s |       127.0.0.1 | GET      "/talk/ws/10001_1619697591753523200"
+[GIN] 2023/01/30 - 22:52:40 | 200 |         4m53s |       127.0.0.1 | GET      "/talk/ws/10001_1619697591753523200"
