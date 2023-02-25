@@ -52,6 +52,9 @@ func (ins *UserService) TakeUserInfo(c *gin.Context, req *bo.TakeUserInfoRequest
 		Avatar:        user.Avatar,
 		Birthday:      utils.TimeToDateString(user.Birthday),
 		CharacterType: common.ParseCharacterType(user.CharacterType).String(),
+		Sex:           user.Sex,
+		City:          user.City,
+		Address:       user.Address,
 	}}, nil
 }
 
@@ -93,6 +96,15 @@ func (ins *UserService) UpdateUserInfo(c *gin.Context, req *bo.UpdateUserInfoReq
 	}
 	if req.Birthday != "" {
 		user.Birthday = birthday
+	}
+	if req.Sex != 0 {
+		user.Sex = req.Sex
+	}
+	if req.City != "" {
+		user.City = req.City
+	}
+	if req.Address != "" {
+		user.Address = req.Address
 	}
 	err = dal.GetUserDal().UpdateUser(c, user)
 	if err != nil {
@@ -142,6 +154,9 @@ func convertToUserVOs(users []*model.User) []*vo.UserVO {
 			Birthday:      utils.TimeToDateString(user.Birthday),
 			Avatar:        user.Avatar,
 			CharacterType: common.ParseCharacterType(user.CharacterType).String(),
+			Sex:           user.Sex,
+			City:          user.City,
+			Address:       user.Address,
 		})
 	}
 	return userVOs

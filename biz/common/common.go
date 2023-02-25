@@ -23,8 +23,8 @@ const (
 
 const (
 	STATUSOKMSG    = "OK"
-	CLIENTERRORMSG = "400 CLIENT ERROR"
-	SERVERERRORMSG = "500 SERVER ERROR"
+	CLIENTERRORMSG = "CLIENT ERROR"
+	SERVERERRORMSG = "SERVER ERROR"
 )
 
 const (
@@ -133,6 +133,33 @@ const (
 	THIRD_C
 )
 
+func ParseHospitalRank(i int) HospitalRank {
+	switch i {
+	case 1:
+		return FIRST_A
+	case 2:
+		return FIRST_B
+	case 3:
+		return FIRST_C
+	case 4:
+		return SECOND_A
+	case 5:
+		return SECOND_B
+	case 6:
+		return SECOND_C
+	case 7:
+		return THIRD_SPECIAL
+	case 8:
+		return THIRD_A
+	case 9:
+		return THIRD_B
+	case 10:
+		return THIRD_C
+	default:
+		return HospitalRank(i)
+	}
+}
+
 func (h HospitalRank) String() string {
 	switch h {
 	case FIRST_A:
@@ -209,5 +236,26 @@ func (m MessageType) Int() int {
 		return 2
 	default:
 		return int(m)
+	}
+}
+
+type SexType int
+
+const (
+	MALE SexType = iota + 1
+	FEMALE
+	OTHER
+)
+
+func (s SexType) Int() int {
+	switch s {
+	case MALE:
+		return 1
+	case FEMALE:
+		return 2
+	case OTHER:
+		return 3
+	default:
+		return int(s)
 	}
 }

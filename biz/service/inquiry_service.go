@@ -96,13 +96,13 @@ func (ins *InquiryService) FindInquiryTitles(c *gin.Context, req *bo.FindInquiry
 		req.CurrentPage < 0 || req.PageSize < 0 {
 		return nil, common.USERINPUTERROR
 	}
-	inquiries, err := dal.GetInquiryDal().FindInquiries(c, req.CurrentPage, req.PageSize, common.ParseReplyStatus(req.ReplyStatus), req.DiseaseName)
+	inquiries, total, err := dal.GetInquiryDal().FindInquiries(c, req.CurrentPage, req.PageSize, common.ParseReplyStatus(req.ReplyStatus), req.DiseaseName)
 	if err != nil {
 		return nil, err
 	}
 	return &bo.FindInquiryTitlesResponse{
-		Total:         len(inquiries),
-		InquiryTitles: convertToInquiryTitleVOs(inquiries),
+		Total:     int(total),
+		Inquiries: convertToInquiryVOs(inquiries),
 	}, nil
 }
 
@@ -116,7 +116,7 @@ func (ins *InquiryService) FindInquiry(c *gin.Context, req *bo.FindInquiryReques
 		return nil, err
 	}
 	return &bo.FindInquiryResponse{Inquiry: &vo.InquiryVO{
-		InquiryID:               req.InquiryID,
+		ID:                      req.InquiryID,
 		UserName:                inquiry.User.Name,
 		DiseaseName:             inquiry.DiseaseName,
 		Description:             inquiry.Description,
@@ -124,6 +124,7 @@ func (ins *InquiryService) FindInquiry(c *gin.Context, req *bo.FindInquiryReques
 		HistoryOfAllergy:        inquiry.HistoryOfAllergy,
 		PastMedicalHistory:      inquiry.PastMedicalHistory,
 		OtherInfo:               inquiry.OtherInfo,
+		ReplyDoctorID:           utils.Uint64ToString(inquiry.ReplyDoctorID),
 		ReplyDoctorName:         inquiry.Doctor.User.Name,
 		ReplyDoctorHospitalName: inquiry.Doctor.Hospital.Name,
 		ReplySuggestion:         inquiry.ReplySuggestion,
@@ -131,14 +132,92 @@ func (ins *InquiryService) FindInquiry(c *gin.Context, req *bo.FindInquiryReques
 	}}, nil
 }
 
-func convertToInquiryTitleVOs(inquiries []*model.Inquiry) []*vo.InquiryTitleVO {
-	var vos []*vo.InquiryTitleVO
+func (ins *InquiryService) FindDoctorInquiries(c *gin.Context, req *bo.FindDoctorInquiriesRequest) (*bo.FindDoctorInquiriesResponse, error) {
+	doctorID, err := utils.StringToUint64(req.DoctorID)
+	if err != nil {
+		return nil, err
+	}
+	inquiries, err := dal.GetInquiryDal().FindDoctorInquiries(c, doctorID)
+	if err != nil {
+		return nil, err
+	}
+	return &bo.FindDoctorInquiriesResponse{
+		Total:     len(inquiries),
+		Inquiries: convertToInquiryVOs(inquiries),
+	}, nil
+}
+
+func (ins *InquiryService) FindUserInquiries(c *gin.Context, req *bo.FindUserInquiriesRequest) (*bo.FindUserInquiriesResponse, error) {
+	var userID uint64
+	if req.UserID == "" {
+		jwtStruct, err := utils.GetCtxUserInfoJWT(c)
+		if err != nil {
+			return nil, err
+		}
+		userID = jwtStruct.UserID
+	} else {
+		id, err := utils.StringToUint64(req.UserID)
+		if err != nil {
+			return nil, err
+		}
+		userID = id
+	}
+	inquiries, err := dal.GetInquiryDal().FindUserInquiries(c, userID)
+	if err != nil {
+		return nil, err
+	}
+	return &bo.FindUserInquiriesResponse{
+		Total:     len(inquiries),
+		Inquiries: convertToInquiryVOs(inquiries),
+	}, nil
+}
+
+func (ins *InquiryService) FindDoctorSuggestionInquiries(c *gin.Context, req *bo.FindDoctorSuggestionInquiriesRequest) (*bo.FindDoctorSuggestionInquiriesResponse, error) {
+	var userID uint64
+	if req.UserID == "" {
+		jwtStruct, err := utils.GetCtxUserInfoJWT(c)
+		if err != nil {
+			return nil, err
+		}
+		userID = jwtStruct.UserID
+	} else {
+		id, err := utils.StringToUint64(req.UserID)
+		if err != nil {
+			return nil, err
+		}
+		userID = id
+	}
+	doctor, err := dal.GetDoctorDal().TakeDoctorByUserID(c, userID)
+	if err != nil {
+		return nil, err
+	}
+	inquiries, err := dal.GetInquiryDal().FindDoctorInquiries(c, doctor.ID)
+	if err != nil {
+		return nil, err
+	}
+	return &bo.FindDoctorSuggestionInquiriesResponse{
+		Total:     len(inquiries),
+		Inquiries: convertToInquiryVOs(inquiries),
+	}, nil
+}
+
+func convertToInquiryVOs(inquiries []*model.Inquiry) []*vo.InquiryVO {
+	var vos []*vo.InquiryVO
 	for _, inquiry := range inquiries {
-		vos = append(vos, &vo.InquiryTitleVO{
-			InquiryID:               utils.Uint64ToString(inquiry.ID),
+		vos = append(vos, &vo.InquiryVO{
+			ID:                      utils.Uint64ToString(inquiry.ID),
+			UserName:                inquiry.User.Name,
 			DiseaseName:             inquiry.DiseaseName,
-			ReplyDoctorHospitalName: inquiry.Doctor.Hospital.Name,
+			Description:             inquiry.Description,
+			WeightHeight:            inquiry.WeightHeight,
+			HistoryOfAllergy:        inquiry.HistoryOfAllergy,
+			PastMedicalHistory:      inquiry.PastMedicalHistory,
+			OtherInfo:               inquiry.OtherInfo,
+			ReplyDoctorID:           utils.Uint64ToString(inquiry.ReplyDoctorID),
 			ReplyDoctorName:         inquiry.Doctor.User.Name,
+			ReplyDoctorHospitalName: inquiry.Doctor.Hospital.Name,
+			ReplySuggestion:         inquiry.ReplySuggestion,
+			CreatedAt:               utils.TimeToDateString(inquiry.CreatedAt),
 		})
 	}
 	return vos

@@ -6,6 +6,7 @@ type DoctorVO struct {
 	HospitalName     string `json:"hospital_name"`
 	DepartmentName   string `json:"department_name"`
 	ProfessionalRank string `json:"professional_rank"`
+	Avatar           string `json:"avatar"`
 	StudyDirection   string `json:"study_direction"`
 	Description      string `json:"description"`
 }

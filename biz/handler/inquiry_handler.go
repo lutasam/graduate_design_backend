@@ -18,6 +18,9 @@ func RegisterInquiryRouter(r *gin.RouterGroup) {
 		r.POST("/upload_reply_suggestion", inquiryController.UploadReplySuggestion)
 		r.POST("/find_inquiry_titles", inquiryController.FindInquiryTitles)
 		r.POST("/find_inquiry", inquiryController.FindInquiry)
+		r.POST("/find_doctor_inquiries", inquiryController.FindDoctorInquiries)
+		r.POST("/find_user_inquiries", inquiryController.FindUserInquiries)
+		r.POST("/find_doctor_suggestion_inquiries", inquiryController.FindDoctorSuggestionInquiries)
 	}
 }
 
@@ -89,6 +92,51 @@ func (ins *InquiryController) FindInquiry(c *gin.Context) {
 		return
 	}
 	resp, err := service.GetInquiryService().FindInquiry(c, req)
+	if err != nil {
+		utils.ResponseError(c, err)
+		return
+	}
+	utils.ResponseSuccess(c, resp)
+}
+
+func (ins *InquiryController) FindDoctorInquiries(c *gin.Context) {
+	req := &bo.FindDoctorInquiriesRequest{}
+	err := c.ShouldBind(req)
+	if err != nil {
+		utils.ResponseClientError(c, common.USERINPUTERROR)
+		return
+	}
+	resp, err := service.GetInquiryService().FindDoctorInquiries(c, req)
+	if err != nil {
+		utils.ResponseError(c, err)
+		return
+	}
+	utils.ResponseSuccess(c, resp)
+}
+
+func (ins *InquiryController) FindUserInquiries(c *gin.Context) {
+	req := &bo.FindUserInquiriesRequest{}
+	err := c.ShouldBind(req)
+	if err != nil {
+		utils.ResponseClientError(c, common.USERINPUTERROR)
+		return
+	}
+	resp, err := service.GetInquiryService().FindUserInquiries(c, req)
+	if err != nil {
+		utils.ResponseError(c, err)
+		return
+	}
+	utils.ResponseSuccess(c, resp)
+}
+
+func (ins *InquiryController) FindDoctorSuggestionInquiries(c *gin.Context) {
+	req := &bo.FindDoctorSuggestionInquiriesRequest{}
+	err := c.ShouldBind(req)
+	if err != nil {
+		utils.ResponseClientError(c, common.USERINPUTERROR)
+		return
+	}
+	resp, err := service.GetInquiryService().FindDoctorSuggestionInquiries(c, req)
 	if err != nil {
 		utils.ResponseError(c, err)
 		return

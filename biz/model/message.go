@@ -12,6 +12,7 @@ type Message struct {
 	UserAvatar string             `json:"user_avatar" bson:"user_avatar"`
 	Content    string             `json:"content" bson:"content"`
 	CreatedAt  time.Time          `json:"created_at" bson:"created_at"`
+	IsRead     bool               `json:"is_read" bson:"is_read"`
 }
 
 func (Message) DBName() string {

@@ -8,4 +8,7 @@ type UserVO struct {
 	Birthday      string `json:"birthday"`
 	Avatar        string `json:"avatar"`
 	CharacterType string `json:"character_type"`
+	Sex           int    `json:"sex"`
+	City          string `json:"city"`
+	Address       string `json:"address"`
 }

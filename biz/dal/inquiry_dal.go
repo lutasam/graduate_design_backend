@@ -33,9 +33,9 @@ func (ins *InquiryDal) CreateInquiry(c *gin.Context, inquiry *model.Inquiry) err
 
 func (ins *InquiryDal) TakeInquiryByID(c *gin.Context, inquiryID uint64) (*model.Inquiry, error) {
 	inquiry := &model.Inquiry{}
-	err := repository.GetDB().WithContext(c).Table(inquiry.TableName()).Preload(clause.Associations).
+	err := repository.GetDB().WithContext(c).Model(&model.Inquiry{}).Preload(clause.Associations).
 		Preload("Doctor.User").Preload("Doctor.Department").Preload("Doctor.Hospital").
-		Where("id = ?", inquiryID).Find(inquiry).Error
+		Where("inquiries.id = ?", inquiryID).Find(inquiry).Error
 	if err != nil {
 		return nil, common.DATABASEERROR
 	}
@@ -46,7 +46,7 @@ func (ins *InquiryDal) TakeInquiryByID(c *gin.Context, inquiryID uint64) (*model
 }
 
 func (ins *InquiryDal) DeleteInquiry(c *gin.Context, inquiryID uint64) error {
-	err := repository.GetDB().WithContext(c).Table(model.Inquiry{}.TableName()).Where("id = ?", inquiryID).
+	err := repository.GetDB().WithContext(c).Table(model.Inquiry{}.TableName()).Where("inquiries.id = ?", inquiryID).
 		Delete(&model.Inquiry{}).Error
 	if err != nil {
 		return common.DATABASEERROR
@@ -62,9 +62,9 @@ func (ins *InquiryDal) UpdateInquiry(c *gin.Context, inquiry *model.Inquiry) err
 	return nil
 }
 
-func (ins *InquiryDal) FindInquiries(c *gin.Context, currentPage, pageSize int, replyStatus common.ReplyStatus, diseaseName string) ([]*model.Inquiry, error) {
+func (ins *InquiryDal) FindInquiries(c *gin.Context, currentPage, pageSize int, replyStatus common.ReplyStatus, diseaseName string) ([]*model.Inquiry, int64, error) {
 	var inquiries []*model.Inquiry
-	sql := repository.GetDB().WithContext(c).Table(model.Inquiry{}.TableName()).Preload(clause.Associations).
+	sql := repository.GetDB().WithContext(c).Model(&model.Inquiry{}).Preload(clause.Associations).
 		Preload("Doctor.User").Preload("Doctor.Department").Preload("Doctor.Hospital")
 	if replyStatus != common.ALL_STATUS {
 		if replyStatus == common.REPLIED {
@@ -76,7 +76,30 @@ func (ins *InquiryDal) FindInquiries(c *gin.Context, currentPage, pageSize int, 
 	if diseaseName != "" {
 		sql = sql.Where("disease_name like ?", "%"+diseaseName+"%")
 	}
-	err := sql.Offset((currentPage - 1) * pageSize).Limit(pageSize).Find(&inquiries).Error
+	var total int64
+	err := sql.Count(&total).Offset((currentPage - 1) * pageSize).Limit(pageSize).Find(&inquiries).Error
+	if err != nil {
+		return nil, 0, common.DATABASEERROR
+	}
+	return inquiries, total, nil
+}
+
+func (ins *InquiryDal) FindDoctorInquiries(c *gin.Context, doctorID uint64) ([]*model.Inquiry, error) {
+	var inquiries []*model.Inquiry
+	err := repository.GetDB().WithContext(c).Model(&model.Inquiry{}).Preload(clause.Associations).
+		Preload("Doctor.User").Preload("Doctor.Department").Preload("Doctor.Hospital").
+		Where("reply_doctor_id = ?", doctorID).Find(&inquiries).Error
+	if err != nil {
+		return nil, common.DATABASEERROR
+	}
+	return inquiries, nil
+}
+
+func (ins *InquiryDal) FindUserInquiries(c *gin.Context, userID uint64) ([]*model.Inquiry, error) {
+	var inquiries []*model.Inquiry
+	err := repository.GetDB().WithContext(c).Model(&model.Inquiry{}).Preload(clause.Associations).
+		Preload("Doctor.User").Preload("Doctor.Department").Preload("Doctor.Hospital").
+		Where("user_id = ?", userID).Find(&inquiries).Error
 	if err != nil {
 		return nil, common.DATABASEERROR
 	}

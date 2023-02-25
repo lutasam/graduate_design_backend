@@ -59,6 +59,7 @@ func (ins *DoctorService) TakeDoctorInfo(c *gin.Context, req *bo.TakeDoctorInfoR
 		Name:             doctor.User.Name,
 		HospitalName:     hospital.Name,
 		DepartmentName:   department.Name,
+		Avatar:           doctor.User.Avatar,
 		ProfessionalRank: common.ParseProfessionalRank(doctor.ProfessionalRank).String(),
 		StudyDirection:   doctor.StudyDirection,
 		Description:      doctor.Description,
@@ -120,12 +121,12 @@ func (ins *DoctorService) FindDoctors(c *gin.Context, req *bo.FindDoctorsRequest
 	if req.CurrentPage < 0 || req.PageSize < 0 {
 		return nil, common.USERINPUTERROR
 	}
-	doctors, err := dal.GetDoctorDal().FindDoctors(c, req.CurrentPage, req.PageSize, req.Name, req.HospitalName, req.DepartmentName)
+	doctors, total, err := dal.GetDoctorDal().FindDoctors(c, req.CurrentPage, req.PageSize, req.StudyDirection, req.HospitalName, req.ProfessionalRank)
 	if err != nil {
 		return nil, err
 	}
 	return &bo.FindDoctorsResponse{
-		Total:   len(doctors),
+		Total:   int(total),
 		Doctors: convertToDoctorVOs(doctors),
 	}, nil
 }
@@ -162,6 +163,21 @@ func (ins *DoctorService) ActiveDoctor(c *gin.Context, req *bo.ActiveDoctorReque
 	return &bo.ActiveDoctorResponse{}, nil
 }
 
+func (ins *DoctorService) FindHospitalDoctors(c *gin.Context, req *bo.FindHospitalDoctorsRequest) (*bo.FindHospitalDoctorsResponse, error) {
+	hospitalID, err := utils.StringToUint64(req.HospitalID)
+	if err != nil {
+		return nil, err
+	}
+	doctors, err := dal.GetDoctorDal().FindHospitalDoctors(c, hospitalID)
+	if err != nil {
+		return nil, err
+	}
+	return &bo.FindHospitalDoctorsResponse{
+		Total:   len(doctors),
+		Doctors: convertToDoctorVOs(doctors),
+	}, nil
+}
+
 func convertToDoctorVOs(doctors []*model.Doctor) []*vo.DoctorVO {
 	var doctorVOs []*vo.DoctorVO
 	for _, doctor := range doctors {
@@ -170,6 +186,7 @@ func convertToDoctorVOs(doctors []*model.Doctor) []*vo.DoctorVO {
 			Name:             doctor.User.Name,
 			HospitalName:     doctor.Hospital.Name,
 			DepartmentName:   doctor.Department.Name,
+			Avatar:           doctor.User.Avatar,
 			ProfessionalRank: common.ParseProfessionalRank(doctor.ProfessionalRank).String(),
 			StudyDirection:   doctor.StudyDirection,
 			Description:      doctor.Description,

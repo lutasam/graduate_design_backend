@@ -96,6 +96,9 @@ func (ins *LoginService) ActiveUser(c *gin.Context, req *bo.ActiveUserRequest) (
 		Birthday:      time.Now(),
 		Avatar:        common.DEFAULTAVATARURL,
 		CharacterType: req.CharacterType,
+		Sex:           common.MALE.Int(),
+		City:          "",
+		Address:       "",
 	}
 	err = dal.GetUserDal().CreateUser(c, user)
 	if err != nil {

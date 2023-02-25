@@ -34,8 +34,8 @@ type FindInquiryTitlesRequest struct {
 }
 
 type FindInquiryTitlesResponse struct {
-	Total         int                  `json:"total"`
-	InquiryTitles []*vo.InquiryTitleVO `json:"inquiry_titles"`
+	Total     int             `json:"total"`
+	Inquiries []*vo.InquiryVO `json:"inquiries"`
 }
 
 type FindInquiryRequest struct {
@@ -44,4 +44,31 @@ type FindInquiryRequest struct {
 
 type FindInquiryResponse struct {
 	Inquiry *vo.InquiryVO `json:"inquiry"`
+}
+
+type FindDoctorInquiriesRequest struct {
+	DoctorID string `json:"doctor_id" binding:"required"`
+}
+
+type FindDoctorInquiriesResponse struct {
+	Total     int             `json:"total"`
+	Inquiries []*vo.InquiryVO `json:"inquiries"`
+}
+
+type FindUserInquiriesRequest struct {
+	UserID string `json:"user_id" binding:"-"`
+}
+
+type FindUserInquiriesResponse struct {
+	Total     int             `json:"total"`
+	Inquiries []*vo.InquiryVO `json:"inquiries"`
+}
+
+type FindDoctorSuggestionInquiriesRequest struct {
+	UserID string `json:"user_id" binding:"-"`
+}
+
+type FindDoctorSuggestionInquiriesResponse struct {
+	Total     int             `json:"total"`
+	Inquiries []*vo.InquiryVO `json:"inquiries"`
 }

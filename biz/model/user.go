@@ -14,6 +14,9 @@ type User struct {
 	Birthday      time.Time      `gorm:"column:birthday"`
 	Avatar        string         `gorm:"column:avatar"`
 	CharacterType int            `gorm:"column:character_type"`
+	Sex           int            `gorm:"column:sex"`
+	City          string         `gorm:"column:city"`
+	Address       string         `gorm:"column:address"`
 	CreatedAt     time.Time      `gorm:"column:created_at"`
 	UpdatedAt     time.Time      `gorm:"column:updated_at"`
 	DeletedAt     gorm.DeletedAt `gorm:"column:deleted_at"`

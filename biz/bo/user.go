@@ -16,6 +16,9 @@ type UpdateUserInfoRequest struct {
 	Name        string `json:"name" binding:"-"`
 	Avatar      string `json:"avatar" binding:"-"`
 	Birthday    string `json:"birthday" binding:"-"`
+	Sex         int    `json:"sex" binding:"-"`
+	City        string `json:"city" binding:"-"`
+	Address     string `json:"address" binding:"-"`
 }
 
 type UpdateUserInfoResponse struct{}

@@ -5,9 +5,11 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/lutasam/doctors/biz/bo"
 	"github.com/lutasam/doctors/biz/common"
+	"github.com/lutasam/doctors/biz/middleware"
 	"github.com/lutasam/doctors/biz/service"
 	"github.com/lutasam/doctors/biz/utils"
 	"github.com/olahol/melody"
+	"net/http"
 )
 
 type TalkController struct{}
@@ -15,12 +17,14 @@ type TalkController struct{}
 func RegisterTalkRouter(r *gin.RouterGroup) {
 	talkController := &TalkController{}
 	{
-		r.POST("/get_talked_users", talkController.GetTalkedUsers)
+		r.POST("/get_talked_users", middleware.JWTAuth(), talkController.GetTalkedUsers)
+		r.POST("/add_talked_user", middleware.JWTAuth(), talkController.AddTalkedUser)
 	}
 
 	// websocket
 	{
 		m := melody.New()
+		m.Upgrader.CheckOrigin = func(r *http.Request) bool { return true } // 跨域
 		r.GET("ws/:channel_id", func(c *gin.Context) {
 			err := m.HandleRequest(c.Writer, c.Request)
 			if err != nil {
@@ -33,11 +37,15 @@ func RegisterTalkRouter(r *gin.RouterGroup) {
 			if err != nil {
 				panic(err)
 			}
-			msg, err := service.GetTalkService().HandleMessage(s, req)
+			resp, err := service.GetTalkService().HandleMessage(s, req)
 			if err != nil {
 				panic(err)
 			}
-			err = m.BroadcastFilter(msg, func(q *melody.Session) bool {
+			bytes, err := json.Marshal(resp)
+			if err != nil {
+				panic(err)
+			}
+			err = m.BroadcastFilter(bytes, func(q *melody.Session) bool {
 				return q.Request.URL.Path == s.Request.URL.Path
 			})
 			if err != nil {
@@ -45,6 +53,21 @@ func RegisterTalkRouter(r *gin.RouterGroup) {
 			}
 		})
 	}
+}
+
+func (ins *TalkController) AddTalkedUser(c *gin.Context) {
+	req := &bo.AddTalkedUserRequest{}
+	err := c.ShouldBind(req)
+	if err != nil {
+		utils.ResponseError(c, err)
+		return
+	}
+	resp, err := service.GetTalkService().AddTalkedUser(c, req)
+	if err != nil {
+		utils.ResponseError(c, err)
+		return
+	}
+	utils.ResponseSuccess(c, resp)
 }
 
 func (ins *TalkController) GetTalkedUsers(c *gin.Context) {

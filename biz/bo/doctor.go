@@ -22,11 +22,11 @@ type UpdateDoctorInfoRequest struct {
 type UpdateDoctorInfoResponse struct{}
 
 type FindDoctorsRequest struct {
-	CurrentPage    int    `json:"current_page" binding:"required"`
-	PageSize       int    `json:"page_size" binding:"required"`
-	Name           string `json:"name" binding:"-"`
-	HospitalName   string `json:"hospital_name" binding:"-"`
-	DepartmentName string `json:"department_name" binding:"-"`
+	CurrentPage      int    `json:"current_page" binding:"required"`
+	PageSize         int    `json:"page_size" binding:"required"`
+	StudyDirection   string `json:"study_direction" binding:"-"`
+	HospitalName     string `json:"hospital_name" binding:"-"`
+	ProfessionalRank int    `json:"professional_rank" binding:"-"`
 }
 
 type FindDoctorsResponse struct {
@@ -45,3 +45,12 @@ type ActiveDoctorRequest struct {
 }
 
 type ActiveDoctorResponse struct{}
+
+type FindHospitalDoctorsRequest struct {
+	HospitalID string `json:"hospital_id" binding:"required"`
+}
+
+type FindHospitalDoctorsResponse struct {
+	Total   int            `json:"total"`
+	Doctors []*vo.DoctorVO `json:"doctors"`
+}

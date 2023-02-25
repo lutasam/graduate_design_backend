@@ -27,9 +27,22 @@ func GetTalkDal() *TalkDal {
 	return talkDal
 }
 
+func (ins *TalkDal) AddTalkedUser(c *gin.Context, fromUserID, toUserID uint64) error {
+	fromid, toid := utils.Uint64ToString(fromUserID), utils.Uint64ToString(toUserID)
+	_, err := repository.GetRedis().WithContext(c).SAdd(c, fromid+common.TALKEDUSERLISTSUFFIX, toid).Result()
+	if err != nil {
+		return common.REDISERROR
+	}
+	_, err = repository.GetRedis().WithContext(c).SAdd(c, toid+common.TALKEDUSERLISTSUFFIX, fromid).Result()
+	if err != nil {
+		return common.REDISERROR
+	}
+	return nil
+}
+
 func (ins *TalkDal) FindTalkedUsers(c *gin.Context, userID uint64) ([]*model.User, error) {
 	id := utils.Uint64ToString(userID)
-	userIDs, err := repository.GetRedis().WithContext(c).LRange(c, id+common.TALKEDUSERLISTSUFFIX, 0, -1).Result()
+	userIDs, err := repository.GetRedis().WithContext(c).SMembers(c, id+common.TALKEDUSERLISTSUFFIX).Result()
 	if err != nil && err != redis.Nil {
 		return nil, common.REDISERROR
 	}
@@ -74,4 +87,16 @@ func (ins *TalkDal) FindMessages(collectionName string) ([]*model.Message, error
 		msgs = append(msgs, msg)
 	}
 	return msgs, nil
+}
+
+func (ins *TalkDal) UpdateMessagesStatusToRead(collectionName string, msgs []*model.Message) error {
+	c := context.Background()
+	for _, msg := range msgs {
+		_, err := repository.GetMongo().Database(model.Message{}.DBName()).Collection(collectionName).
+			UpdateByID(c, msg.ID, bson.D{{"$set", bson.D{{"is_read", true}}}})
+		if err != nil {
+			return common.MONGOERROR
+		}
+	}
+	return nil
 }

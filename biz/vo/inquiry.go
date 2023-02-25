@@ -1,14 +1,7 @@
 package vo
 
-type InquiryTitleVO struct {
-	InquiryID               string `json:"inquiry_id"`
-	DiseaseName             string `json:"disease_name"`
-	ReplyDoctorHospitalName string `json:"reply_doctor_hospital_name"`
-	ReplyDoctorName         string `json:"reply_doctor_name"`
-}
-
 type InquiryVO struct {
-	InquiryID               string `json:"inquiry_id"`
+	ID                      string `json:"id"`
 	UserName                string `json:"user_name"`
 	DiseaseName             string `json:"disease_name"`
 	Description             string `json:"description"`
@@ -16,6 +9,7 @@ type InquiryVO struct {
 	HistoryOfAllergy        string `json:"history_of_allergy"`
 	PastMedicalHistory      string `json:"past_medical_history"`
 	OtherInfo               string `json:"other_info"`
+	ReplyDoctorID           string `json:"reply_doctor_id"`
 	ReplyDoctorName         string `json:"reply_doctor_name"`
 	ReplyDoctorHospitalName string `json:"reply_doctor_hospital_name"`
 	ReplySuggestion         string `json:"reply_suggestion"`

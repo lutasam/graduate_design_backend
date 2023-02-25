@@ -18,6 +18,7 @@ func RegisterDoctorRouter(r *gin.RouterGroup) {
 		r.POST("/find_doctors", doctorController.FindDoctors)
 		r.POST("/delete_doctor", doctorController.DeleteDoctor)
 		r.POST("/active_doctor", doctorController.ActiveDoctor)
+		r.POST("/find_hospital_doctors", doctorController.FindHospitalDoctors)
 	}
 }
 
@@ -89,6 +90,21 @@ func (ins *DoctorController) ActiveDoctor(c *gin.Context) {
 		return
 	}
 	resp, err := service.GetDoctorService().ActiveDoctor(c, req)
+	if err != nil {
+		utils.ResponseError(c, err)
+		return
+	}
+	utils.ResponseSuccess(c, resp)
+}
+
+func (ins *DoctorController) FindHospitalDoctors(c *gin.Context) {
+	req := &bo.FindHospitalDoctorsRequest{}
+	err := c.ShouldBind(req)
+	if err != nil {
+		utils.ResponseClientError(c, common.USERINPUTERROR)
+		return
+	}
+	resp, err := service.GetDoctorService().FindHospitalDoctors(c, req)
 	if err != nil {
 		utils.ResponseError(c, err)
 		return

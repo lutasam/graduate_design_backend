@@ -5,6 +5,7 @@ import (
 	"github.com/lutasam/doctors/biz/common"
 	"github.com/lutasam/doctors/biz/model"
 	"github.com/lutasam/doctors/biz/repository"
+	"gorm.io/gorm/clause"
 	"sync"
 )
 
@@ -24,7 +25,7 @@ func GetDepartmentDal() *DepartmentDal {
 
 func (ins *DepartmentDal) TakeDepartmentByID(c *gin.Context, departmentID uint64) (*model.Department, error) {
 	department := &model.Department{}
-	err := repository.GetDB().WithContext(c).Table(model.Department{}.TableName()).Where("id = ?", departmentID).Find(department).Error
+	err := repository.GetDB().WithContext(c).Model(&model.Department{}).Preload(clause.Associations).Where("departments.id = ?", departmentID).Find(department).Error
 	if err != nil {
 		return nil, common.DATABASEERROR
 	}
@@ -36,7 +37,7 @@ func (ins *DepartmentDal) TakeDepartmentByID(c *gin.Context, departmentID uint64
 
 func (ins *DepartmentDal) TakeDepartmentByName(c *gin.Context, departmentName string) (*model.Department, error) {
 	department := &model.Department{}
-	err := repository.GetDB().WithContext(c).Table(model.Department{}.TableName()).Where("name = ?", departmentName).Find(department).Error
+	err := repository.GetDB().WithContext(c).Model(&model.Department{}).Preload(clause.Associations).Where("departments.name = ?", departmentName).Find(department).Error
 	if err != nil {
 		return nil, common.DATABASEERROR
 	}
@@ -44,4 +45,14 @@ func (ins *DepartmentDal) TakeDepartmentByName(c *gin.Context, departmentName st
 		return nil, common.DATANOTFOUND
 	}
 	return department, nil
+}
+
+func (ins *DepartmentDal) FindHospitalDepartments(c *gin.Context, hospitalID uint64) ([]*model.Department, error) {
+	var departments []*model.Department
+	err := repository.GetDB().WithContext(c).Model(&model.Department{}).Preload(clause.Associations).
+		Where("hospital_id = ?", hospitalID).Find(&departments).Error
+	if err != nil {
+		return nil, common.DATABASEERROR
+	}
+	return departments, nil
 }

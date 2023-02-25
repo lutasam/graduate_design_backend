@@ -26,12 +26,16 @@ func InitRouterAndMiddleware(r *gin.Engine) {
 	handler.RegisterLoginRouter(login)
 
 	// 通讯模块
-	talk := r.Group("/talk", middleware.JWTAuth())
+	talk := r.Group("/talk")
 	handler.RegisterTalkRouter(talk)
 
 	// 用户模块
 	user := r.Group("/user", middleware.JWTAuth())
 	handler.RegisterUserRouter(user)
+
+	// 医院模块
+	hospital := r.Group("/hospital", middleware.JWTAuth())
+	handler.RegisterHospitalRouter(hospital)
 
 	// 医生模块
 	doctor := r.Group("/doctor", middleware.JWTAuth())
