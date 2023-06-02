@@ -17,8 +17,8 @@ redis:
 # mongodb config
 mongo:
   address: 124.70.201.39:27017
-  user: root
-  password: 200010
+  user: superAdmin
+  password: WJGUchenwei2000
   dbname:
 # log config
 log:
@@ -31,13 +31,18 @@ mail:
   auth: 465badbff16e0582
 file:
   imgs:
-    address: /share/public/imgs/
+    # address: /share/public/imgs/
+    address: imgs/
     # linux: /share/public/imgs/
     # Windows: imgs/
-    url: http://124.70.201.39:8080/imgs/
+    # url: http://124.70.201.39:8080/imgs/
+    url: http://localhost:8081/imgs/
     # linux: http://124.70.201.39:8080/imgs/
-    # Windows: D:/Code/program/Go/src/gin_admin_sys/imgs/
+    # Windows: http://localhost:8081/imgs/
   files:
     address: /share/public/files/
     # linux: /share/public/files/
     # Windows: files/
+sock:
+  host: 127.0.0.1
+  port: 8000

@@ -100,3 +100,53 @@ func (ins *TalkDal) UpdateMessagesStatusToRead(collectionName string, msgs []*mo
 	}
 	return nil
 }
+
+func (ins *TalkDal) SetUserOnline(c *gin.Context, userID uint64) error {
+	_, err := repository.GetRedis().WithContext(c).SAdd(c, common.USER_ONLINE, userID).Result()
+	if err != nil {
+		return common.REDISERROR
+	}
+	// 为登陆状态设置过期时间
+	_, err = repository.GetRedis().WithContext(c).Expire(c, common.USER_ONLINE+":"+utils.Uint64ToString(userID), common.REDISEXPIRETIME).Result()
+	if err != nil {
+		return common.REDISERROR
+	}
+	return nil
+}
+
+func (ins *TalkDal) SetUserOffline(c *gin.Context, userID uint64) error {
+	_, err := repository.GetRedis().WithContext(c).SRem(c, common.USER_ONLINE, userID).Result()
+	if err != nil {
+		return common.REDISERROR
+	}
+	return nil
+}
+
+func (ins *TalkDal) GetUserOnlineStatus(c *gin.Context, userID uint64) (bool, error) {
+	isOnline, err := repository.GetRedis().WithContext(c).SIsMember(c, common.USER_ONLINE, userID).Result()
+	if err != nil {
+		return false, common.REDISERROR
+	}
+	return isOnline, nil
+}
+
+func (ins *TalkDal) TakeGPT2AnswerInCacheIfExist(question string) (bool, string, error) {
+	c := context.Background()
+	answer, err := repository.GetRedis().WithContext(c).HGet(c, common.GPT2_ANSWERS, question).Result()
+	if err != nil && err != redis.Nil {
+		return false, "", common.REDISERROR
+	}
+	if err == redis.Nil {
+		return false, "", nil
+	}
+	return true, answer, nil
+}
+
+func (ins *TalkDal) AddGPT2AnswerToCache(question, answer string) error {
+	c := context.Background()
+	_, err := repository.GetRedis().WithContext(c).HSetNX(c, common.GPT2_ANSWERS, question, answer).Result()
+	if err != nil {
+		return common.REDISERROR
+	}
+	return nil
+}

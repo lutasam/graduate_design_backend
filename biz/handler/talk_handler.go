@@ -3,6 +3,7 @@ package handler
 import (
 	"encoding/json"
 	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin/binding"
 	"github.com/lutasam/doctors/biz/bo"
 	"github.com/lutasam/doctors/biz/common"
 	"github.com/lutasam/doctors/biz/middleware"
@@ -19,6 +20,8 @@ func RegisterTalkRouter(r *gin.RouterGroup) {
 	{
 		r.POST("/get_talked_users", middleware.JWTAuth(), talkController.GetTalkedUsers)
 		r.POST("/add_talked_user", middleware.JWTAuth(), talkController.AddTalkedUser)
+		r.POST("/set_user_online", middleware.JWTAuth(), talkController.SetUserOnline)
+		r.POST("/set_user_offline", middleware.JWTAuth(), talkController.SetUserOffline)
 	}
 
 	// websocket
@@ -57,7 +60,7 @@ func RegisterTalkRouter(r *gin.RouterGroup) {
 
 func (ins *TalkController) AddTalkedUser(c *gin.Context) {
 	req := &bo.AddTalkedUserRequest{}
-	err := c.ShouldBind(req)
+	err := c.ShouldBindBodyWith(req, binding.JSON)
 	if err != nil {
 		utils.ResponseError(c, err)
 		return
@@ -72,12 +75,42 @@ func (ins *TalkController) AddTalkedUser(c *gin.Context) {
 
 func (ins *TalkController) GetTalkedUsers(c *gin.Context) {
 	req := &bo.GetTalkedUsersRequest{}
-	err := c.ShouldBind(req)
+	err := c.ShouldBindBodyWith(req, binding.JSON)
 	if err != nil {
 		utils.ResponseError(c, err)
 		return
 	}
 	resp, err := service.GetTalkService().GetTalkedUsers(c, req)
+	if err != nil {
+		utils.ResponseError(c, err)
+		return
+	}
+	utils.ResponseSuccess(c, resp)
+}
+
+func (ins *TalkController) SetUserOnline(c *gin.Context) {
+	req := &bo.SetUserOnlineRequest{}
+	err := c.ShouldBindBodyWith(req, binding.JSON)
+	if err != nil {
+		utils.ResponseError(c, err)
+		return
+	}
+	resp, err := service.GetTalkService().SetUserOnline(c, req)
+	if err != nil {
+		utils.ResponseError(c, err)
+		return
+	}
+	utils.ResponseSuccess(c, resp)
+}
+
+func (ins *TalkController) SetUserOffline(c *gin.Context) {
+	req := &bo.SetUserOfflineRequest{}
+	err := c.ShouldBindBodyWith(req, binding.JSON)
+	if err != nil {
+		utils.ResponseError(c, err)
+		return
+	}
+	resp, err := service.GetTalkService().SetUserOffline(c, req)
 	if err != nil {
 		utils.ResponseError(c, err)
 		return

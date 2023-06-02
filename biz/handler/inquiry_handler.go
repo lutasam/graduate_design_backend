@@ -2,6 +2,7 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin/binding"
 	"github.com/lutasam/doctors/biz/bo"
 	"github.com/lutasam/doctors/biz/common"
 	"github.com/lutasam/doctors/biz/service"
@@ -26,7 +27,7 @@ func RegisterInquiryRouter(r *gin.RouterGroup) {
 
 func (ins *InquiryController) CreateInquiry(c *gin.Context) {
 	req := &bo.CreateInquiryRequest{}
-	err := c.ShouldBind(req)
+	err := c.ShouldBindBodyWith(req, binding.JSON)
 	if err != nil {
 		utils.ResponseClientError(c, common.USERINPUTERROR)
 		return
@@ -41,7 +42,7 @@ func (ins *InquiryController) CreateInquiry(c *gin.Context) {
 
 func (ins *InquiryController) DeleteInquiry(c *gin.Context) {
 	req := &bo.DeleteInquiryRequest{}
-	err := c.ShouldBind(req)
+	err := c.ShouldBindBodyWith(req, binding.JSON)
 	if err != nil {
 		utils.ResponseClientError(c, common.USERINPUTERROR)
 		return
@@ -56,7 +57,7 @@ func (ins *InquiryController) DeleteInquiry(c *gin.Context) {
 
 func (ins *InquiryController) UploadReplySuggestion(c *gin.Context) {
 	req := &bo.UploadReplySuggestionRequest{}
-	err := c.ShouldBind(req)
+	err := c.ShouldBindBodyWith(req, binding.JSON)
 	if err != nil {
 		utils.ResponseClientError(c, common.USERINPUTERROR)
 		return
@@ -71,7 +72,7 @@ func (ins *InquiryController) UploadReplySuggestion(c *gin.Context) {
 
 func (ins *InquiryController) FindInquiryTitles(c *gin.Context) {
 	req := &bo.FindInquiryTitlesRequest{}
-	err := c.ShouldBind(req)
+	err := c.ShouldBindBodyWith(req, binding.JSON)
 	if err != nil {
 		utils.ResponseClientError(c, common.USERINPUTERROR)
 		return
@@ -86,7 +87,7 @@ func (ins *InquiryController) FindInquiryTitles(c *gin.Context) {
 
 func (ins *InquiryController) FindInquiry(c *gin.Context) {
 	req := &bo.FindInquiryRequest{}
-	err := c.ShouldBind(req)
+	err := c.ShouldBindBodyWith(req, binding.JSON)
 	if err != nil {
 		utils.ResponseClientError(c, common.USERINPUTERROR)
 		return
@@ -101,7 +102,7 @@ func (ins *InquiryController) FindInquiry(c *gin.Context) {
 
 func (ins *InquiryController) FindDoctorInquiries(c *gin.Context) {
 	req := &bo.FindDoctorInquiriesRequest{}
-	err := c.ShouldBind(req)
+	err := c.ShouldBindBodyWith(req, binding.JSON)
 	if err != nil {
 		utils.ResponseClientError(c, common.USERINPUTERROR)
 		return
@@ -116,7 +117,7 @@ func (ins *InquiryController) FindDoctorInquiries(c *gin.Context) {
 
 func (ins *InquiryController) FindUserInquiries(c *gin.Context) {
 	req := &bo.FindUserInquiriesRequest{}
-	err := c.ShouldBind(req)
+	err := c.ShouldBindBodyWith(req, binding.JSON)
 	if err != nil {
 		utils.ResponseClientError(c, common.USERINPUTERROR)
 		return
@@ -131,7 +132,7 @@ func (ins *InquiryController) FindUserInquiries(c *gin.Context) {
 
 func (ins *InquiryController) FindDoctorSuggestionInquiries(c *gin.Context) {
 	req := &bo.FindDoctorSuggestionInquiriesRequest{}
-	err := c.ShouldBind(req)
+	err := c.ShouldBindBodyWith(req, binding.JSON)
 	if err != nil {
 		utils.ResponseClientError(c, common.USERINPUTERROR)
 		return

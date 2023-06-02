@@ -2,6 +2,7 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin/binding"
 	"github.com/lutasam/doctors/biz/bo"
 	"github.com/lutasam/doctors/biz/common"
 	"github.com/lutasam/doctors/biz/middleware"
@@ -26,7 +27,7 @@ func RegisterLoginRouter(r *gin.RouterGroup) {
 
 func (ins *LoginController) Login(c *gin.Context) {
 	req := &bo.LoginRequest{}
-	err := c.ShouldBind(req)
+	err := c.ShouldBindBodyWith(req, binding.JSON)
 	if err != nil {
 		utils.ResponseClientError(c, common.USERINPUTERROR)
 		return
@@ -41,7 +42,7 @@ func (ins *LoginController) Login(c *gin.Context) {
 
 func (ins *LoginController) ApplyRegister(c *gin.Context) {
 	req := &bo.ApplyRegisterRequest{}
-	err := c.ShouldBind(req)
+	err := c.ShouldBindBodyWith(req, binding.JSON)
 	if err != nil {
 		utils.ResponseClientError(c, common.USERINPUTERROR)
 		return
@@ -56,7 +57,7 @@ func (ins *LoginController) ApplyRegister(c *gin.Context) {
 
 func (ins *LoginController) ActiveUser(c *gin.Context) {
 	req := &bo.ActiveUserRequest{}
-	err := c.ShouldBind(req)
+	err := c.ShouldBindBodyWith(req, binding.JSON)
 	if err != nil {
 		utils.ResponseClientError(c, common.USERINPUTERROR)
 	}
@@ -70,7 +71,7 @@ func (ins *LoginController) ActiveUser(c *gin.Context) {
 
 func (ins *LoginController) ResetPassword(c *gin.Context) {
 	req := &bo.ResetPasswordRequest{}
-	err := c.ShouldBind(req)
+	err := c.ShouldBindBodyWith(req, binding.JSON)
 	if err != nil {
 		utils.ResponseClientError(c, common.USERINPUTERROR)
 		return
@@ -85,7 +86,7 @@ func (ins *LoginController) ResetPassword(c *gin.Context) {
 
 func (ins *LoginController) ActiveResetPassword(c *gin.Context) {
 	req := &bo.ActiveResetPasswordRequest{}
-	err := c.ShouldBind(req)
+	err := c.ShouldBindBodyWith(req, binding.JSON)
 	if err != nil {
 		utils.ResponseClientError(c, common.USERINPUTERROR)
 	}
@@ -99,7 +100,7 @@ func (ins *LoginController) ActiveResetPassword(c *gin.Context) {
 
 func (ins *LoginController) ApplyChangeUserEmail(c *gin.Context) {
 	req := &bo.ApplyChangeUserEmailRequest{}
-	err := c.ShouldBind(req)
+	err := c.ShouldBindBodyWith(req, binding.JSON)
 	if err != nil {
 		utils.ResponseClientError(c, common.USERINPUTERROR)
 	}
@@ -113,7 +114,7 @@ func (ins *LoginController) ApplyChangeUserEmail(c *gin.Context) {
 
 func (ins *LoginController) ActiveChangeUserEmail(c *gin.Context) {
 	req := &bo.ActiveChangeUserEmailRequest{}
-	err := c.ShouldBind(req)
+	err := c.ShouldBindBodyWith(req, binding.JSON)
 	if err != nil {
 		utils.ResponseClientError(c, common.USERINPUTERROR)
 	}

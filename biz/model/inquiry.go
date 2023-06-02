@@ -8,9 +8,9 @@ import (
 type Inquiry struct {
 	ID                 uint64         `gorm:"column:id"`
 	UserID             uint64         `gorm:"column:user_id"` // 发起人
-	User               *User          `gorm:"foreignKey:user_id;references:id"`
+	User               User           `gorm:"foreignKey:user_id;references:id"`
 	ReplyDoctorID      uint64         `gorm:"column:reply_doctor_id"` // 接诊医生
-	Doctor             *Doctor        `gorm:"foreignKey:reply_doctor_id;references:id"`
+	Doctor             Doctor         `gorm:"foreignKey:reply_doctor_id;references:id"`
 	DiseaseName        string         `gorm:"column:disease_name"`         // 疾病
 	Description        string         `gorm:"column:description"`          // 疾病描述
 	WeightHeight       string         `gorm:"column:weight_height"`        // 身高体重
@@ -24,5 +24,16 @@ type Inquiry struct {
 }
 
 func (Inquiry) TableName() string {
+	return "inquiries"
+}
+
+type InquiryES struct {
+	InquiryID      uint64    `json:"inquiry_id"`
+	Title          string    `json:"title"`
+	Describe       string    `json:"describe"`
+	DescribeVector []float64 `json:"describe_vector"`
+}
+
+func (InquiryES) IndexName() string {
 	return "inquiries"
 }

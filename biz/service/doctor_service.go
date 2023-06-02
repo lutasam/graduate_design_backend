@@ -54,6 +54,13 @@ func (ins *DoctorService) TakeDoctorInfo(c *gin.Context, req *bo.TakeDoctorInfoR
 	if err != nil {
 		return nil, err
 	}
+	// 评分注意评分人数未0时不能直接除
+	var rateScore float64
+	if doctor.RatePeopleNum == 0 {
+		rateScore = 0
+	} else {
+		rateScore = doctor.RateTotalScore / float64(doctor.RatePeopleNum)
+	}
 	return &bo.TakeDoctorInfoResponse{Doctor: &vo.DoctorVO{
 		ID:               utils.Uint64ToString(doctor.ID),
 		Name:             doctor.User.Name,
@@ -63,6 +70,8 @@ func (ins *DoctorService) TakeDoctorInfo(c *gin.Context, req *bo.TakeDoctorInfoR
 		ProfessionalRank: common.ParseProfessionalRank(doctor.ProfessionalRank).String(),
 		StudyDirection:   doctor.StudyDirection,
 		Description:      doctor.Description,
+		RateScore:        rateScore,
+		RatePeopleNum:    doctor.RatePeopleNum,
 	}}, nil
 }
 
@@ -121,7 +130,7 @@ func (ins *DoctorService) FindDoctors(c *gin.Context, req *bo.FindDoctorsRequest
 	if req.CurrentPage < 0 || req.PageSize < 0 {
 		return nil, common.USERINPUTERROR
 	}
-	doctors, total, err := dal.GetDoctorDal().FindDoctors(c, req.CurrentPage, req.PageSize, req.StudyDirection, req.HospitalName, req.ProfessionalRank)
+	doctors, total, err := dal.GetDoctorDal().FindDoctors(c, req.CurrentPage, req.PageSize, req.StudyDirection, req.HospitalName, req.ProfessionalRank, req.Department)
 	if err != nil {
 		return nil, err
 	}
@@ -178,9 +187,82 @@ func (ins *DoctorService) FindHospitalDoctors(c *gin.Context, req *bo.FindHospit
 	}, nil
 }
 
+func (ins *DoctorService) TakeDoctorRank(c *gin.Context, req *bo.TakeDoctorRankRequest) (*bo.TakeDoctorRankResponse, error) {
+	doctorID, err := utils.StringToUint64(req.DoctorID)
+	if err != nil {
+		return nil, err
+	}
+	rank, err := dal.GetDoctorDal().TakeDoctorRank(c, doctorID, req.DepartmentName)
+	if err != nil {
+		return nil, err
+	}
+	return &bo.TakeDoctorRankResponse{Rank: rank}, nil
+}
+
+func (ins *DoctorService) SetDoctorReadCount(c *gin.Context, req *bo.SetDoctorReadCountRequest) (*bo.SetDoctorReadCountResponse, error) {
+	doctorID, err := utils.StringToUint64(req.DoctorID)
+	if err != nil {
+		return nil, err
+	}
+	err = dal.GetDoctorDal().SetDoctorReadCount(c, doctorID)
+	if err != nil {
+		return nil, err
+	}
+	return &bo.SetDoctorReadCountResponse{}, nil
+}
+
+func (ins *DoctorService) TakeDoctorReadCount(c *gin.Context, req *bo.TakeDoctorReadCountRequest) (*bo.TakeDoctorReadCountResponse, error) {
+	doctorID, err := utils.StringToUint64(req.DoctorID)
+	if err != nil {
+		return nil, err
+	}
+	readCount, err := dal.GetDoctorDal().TakeDoctorReadCount(c, doctorID)
+	if err != nil {
+		return nil, err
+	}
+	return &bo.TakeDoctorReadCountResponse{ReadCount: readCount}, nil
+}
+
+func (ins *DoctorService) UpdateDoctorRateScore(c *gin.Context, req *bo.UpdateDoctorRateScoreRequest) (*bo.UpdateDoctorRateScoreResponse, error) {
+	jwtStruct, err := utils.GetCtxUserInfoJWT(c)
+	if err != nil {
+		return nil, err
+	}
+	doctorID, err := utils.StringToUint64(req.DoctorID)
+	if err != nil {
+		return nil, err
+	}
+	isExist, err := dal.GetDoctorDal().IsUserRatedOnDoctor(c, jwtStruct.UserID, doctorID)
+	if err != nil {
+		return nil, err
+	}
+	if isExist {
+		return nil, common.USERHASRATED
+	}
+	_, err = dal.GetDoctorDal().TakeDoctorByID(c, doctorID)
+	if err != nil {
+		return nil, err
+	}
+	err = dal.GetDoctorDal().UpdateDoctorRateScore(c, doctorID, req.Score)
+	if err != nil {
+		return nil, err
+	}
+	err = dal.GetDoctorDal().SetUserRatedOnDoctor(c, jwtStruct.UserID, doctorID)
+	if err != nil {
+		return nil, err
+	}
+	return &bo.UpdateDoctorRateScoreResponse{}, nil
+}
+
 func convertToDoctorVOs(doctors []*model.Doctor) []*vo.DoctorVO {
 	var doctorVOs []*vo.DoctorVO
 	for _, doctor := range doctors {
+		var rateScore float64
+		if doctor.RatePeopleNum == 0 {
+			rateScore = 0
+		} else {
+			rateScore = doctor.RateTotalScore / float64(doctor.RatePeopleNum)
+		}
 		doctorVOs = append(doctorVOs, &vo.DoctorVO{
 			ID:               utils.Uint64ToString(doctor.ID),
 			Name:             doctor.User.Name,
@@ -190,6 +272,8 @@ func convertToDoctorVOs(doctors []*model.Doctor) []*vo.DoctorVO {
 			ProfessionalRank: common.ParseProfessionalRank(doctor.ProfessionalRank).String(),
 			StudyDirection:   doctor.StudyDirection,
 			Description:      doctor.Description,
+			RateScore:        rateScore,
+			RatePeopleNum:    doctor.RatePeopleNum,
 		})
 	}
 	return doctorVOs

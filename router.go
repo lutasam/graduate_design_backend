@@ -5,6 +5,7 @@ import (
 	"github.com/lutasam/doctors/biz/handler"
 	"github.com/lutasam/doctors/biz/middleware"
 	"io"
+	"net/http"
 	"os"
 )
 
@@ -20,9 +21,12 @@ func InitRouterAndMiddleware(r *gin.Engine) {
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 
+	// 虚拟静态文件路径 windows开启 linux注释掉下方代码
+	r.StaticFS("/imgs", http.Dir("D:\\Code\\program\\Go\\src\\graduate_design_backend\\imgs"))
+
 	// 注册分组路由
 	// 登录模块
-	login := r.Group("/login")
+	login := r.Group("/login", middleware.SensitiveFilter())
 	handler.RegisterLoginRouter(login)
 
 	// 通讯模块
@@ -30,18 +34,26 @@ func InitRouterAndMiddleware(r *gin.Engine) {
 	handler.RegisterTalkRouter(talk)
 
 	// 用户模块
-	user := r.Group("/user", middleware.JWTAuth())
+	user := r.Group("/user", middleware.JWTAuth(), middleware.SensitiveFilter())
 	handler.RegisterUserRouter(user)
 
 	// 医院模块
-	hospital := r.Group("/hospital", middleware.JWTAuth())
+	hospital := r.Group("/hospital", middleware.JWTAuth(), middleware.SensitiveFilter())
 	handler.RegisterHospitalRouter(hospital)
 
 	// 医生模块
-	doctor := r.Group("/doctor", middleware.JWTAuth())
+	doctor := r.Group("/doctor", middleware.JWTAuth(), middleware.SensitiveFilter())
 	handler.RegisterDoctorRouter(doctor)
 
 	// 问诊模块
-	inquiry := r.Group("/inquiry", middleware.JWTAuth())
+	inquiry := r.Group("/inquiry", middleware.JWTAuth(), middleware.SensitiveFilter())
 	handler.RegisterInquiryRouter(inquiry)
+
+	// 文件模块
+	file := r.Group("/file")
+	handler.RegisterFileRouter(file)
+
+	// 评论模块
+	comment := r.Group("/comment", middleware.JWTAuth(), middleware.SensitiveFilter())
+	handler.RegisterCommentController(comment)
 }

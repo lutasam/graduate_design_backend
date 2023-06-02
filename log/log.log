@@ -1,231 +1,54 @@
-[GIN-debug] POST   /login/login              --> github.com/lutasam/doctors/biz/handler.(*LoginController).Login-fm (3 handlers)
-[GIN-debug] POST   /login/apply_register     --> github.com/lutasam/doctors/biz/handler.(*LoginController).ApplyRegister-fm (3 handlers)
-[GIN-debug] POST   /login/active_user        --> github.com/lutasam/doctors/biz/handler.(*LoginController).ActiveUser-fm (3 handlers)
-[GIN-debug] POST   /login/reset_password     --> github.com/lutasam/doctors/biz/handler.(*LoginController).ResetPassword-fm (3 handlers)
-[GIN-debug] POST   /login/active_reset_password --> github.com/lutasam/doctors/biz/handler.(*LoginController).ActiveResetPassword-fm (3 handlers)
-[GIN-debug] POST   /login/apply_change_user_email --> github.com/lutasam/doctors/biz/handler.(*LoginController).ApplyChangeUserEmail-fm (4 handlers)
-[GIN-debug] POST   /login/active_change_user_email --> github.com/lutasam/doctors/biz/handler.(*LoginController).ActiveChangeUserEmail-fm (4 handlers)
+[GIN-debug] GET    /imgs/*filepath           --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
+[GIN-debug] HEAD   /imgs/*filepath           --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
+[GIN-debug] POST   /login/login              --> github.com/lutasam/doctors/biz/handler.(*LoginController).Login-fm (4 handlers)
+[GIN-debug] POST   /login/apply_register     --> github.com/lutasam/doctors/biz/handler.(*LoginController).ApplyRegister-fm (4 handlers)
+[GIN-debug] POST   /login/active_user        --> github.com/lutasam/doctors/biz/handler.(*LoginController).ActiveUser-fm (4 handlers)
+[GIN-debug] POST   /login/reset_password     --> github.com/lutasam/doctors/biz/handler.(*LoginController).ResetPassword-fm (4 handlers)
+[GIN-debug] POST   /login/active_reset_password --> github.com/lutasam/doctors/biz/handler.(*LoginController).ActiveResetPassword-fm (4 handlers)
+[GIN-debug] POST   /login/apply_change_user_email --> github.com/lutasam/doctors/biz/handler.(*LoginController).ApplyChangeUserEmail-fm (5 handlers)
+[GIN-debug] POST   /login/active_change_user_email --> github.com/lutasam/doctors/biz/handler.(*LoginController).ActiveChangeUserEmail-fm (5 handlers)
 [GIN-debug] POST   /talk/get_talked_users    --> github.com/lutasam/doctors/biz/handler.(*TalkController).GetTalkedUsers-fm (4 handlers)
 [GIN-debug] POST   /talk/add_talked_user     --> github.com/lutasam/doctors/biz/handler.(*TalkController).AddTalkedUser-fm (4 handlers)
+[GIN-debug] POST   /talk/set_user_online     --> github.com/lutasam/doctors/biz/handler.(*TalkController).SetUserOnline-fm (4 handlers)
+[GIN-debug] POST   /talk/set_user_offline    --> github.com/lutasam/doctors/biz/handler.(*TalkController).SetUserOffline-fm (4 handlers)
 [GIN-debug] GET    /talk/ws/:channel_id      --> github.com/lutasam/doctors/biz/handler.RegisterTalkRouter.func2 (3 handlers)
-[GIN-debug] POST   /user/update_user_info    --> github.com/lutasam/doctors/biz/handler.(*UserController).UpdateUserInfo-fm (4 handlers)
-[GIN-debug] POST   /user/take_user_info      --> github.com/lutasam/doctors/biz/handler.(*UserController).TakeUserInfo-fm (4 handlers)
-[GIN-debug] POST   /user/find_users          --> github.com/lutasam/doctors/biz/handler.(*UserController).FindUsers-fm (4 handlers)
-[GIN-debug] POST   /user/delete_user         --> github.com/lutasam/doctors/biz/handler.(*UserController).DeleteUser-fm (4 handlers)
-[GIN-debug] POST   /hospital/find_hospitals  --> github.com/lutasam/doctors/biz/handler.(*HospitalController).FindHospitals-fm (4 handlers)
-[GIN-debug] POST   /hospital/take_hospital_info --> github.com/lutasam/doctors/biz/handler.(*HospitalController).TakeHospitalInfo-fm (4 handlers)
-[GIN-debug] POST   /hospital/find_hospital_department_names --> github.com/lutasam/doctors/biz/handler.(*HospitalController).FindHospitalDepartmentNames-fm (4 handlers)
-[GIN-debug] POST   /doctor/take_doctor_info  --> github.com/lutasam/doctors/biz/handler.(*DoctorController).TakeDoctorInfo-fm (4 handlers)
-[GIN-debug] POST   /doctor/update_doctor_info --> github.com/lutasam/doctors/biz/handler.(*DoctorController).UpdateDoctorInfo-fm (4 handlers)
-[GIN-debug] POST   /doctor/find_doctors      --> github.com/lutasam/doctors/biz/handler.(*DoctorController).FindDoctors-fm (4 handlers)
-[GIN-debug] POST   /doctor/delete_doctor     --> github.com/lutasam/doctors/biz/handler.(*DoctorController).DeleteDoctor-fm (4 handlers)
-[GIN-debug] POST   /doctor/active_doctor     --> github.com/lutasam/doctors/biz/handler.(*DoctorController).ActiveDoctor-fm (4 handlers)
-[GIN-debug] POST   /doctor/find_hospital_doctors --> github.com/lutasam/doctors/biz/handler.(*DoctorController).FindHospitalDoctors-fm (4 handlers)
-[GIN-debug] POST   /inquiry/create_inquiry   --> github.com/lutasam/doctors/biz/handler.(*InquiryController).CreateInquiry-fm (4 handlers)
-[GIN-debug] POST   /inquiry/delete_inquiry   --> github.com/lutasam/doctors/biz/handler.(*InquiryController).DeleteInquiry-fm (4 handlers)
-[GIN-debug] POST   /inquiry/upload_reply_suggestion --> github.com/lutasam/doctors/biz/handler.(*InquiryController).UploadReplySuggestion-fm (4 handlers)
-[GIN-debug] POST   /inquiry/find_inquiry_titles --> github.com/lutasam/doctors/biz/handler.(*InquiryController).FindInquiryTitles-fm (4 handlers)
-[GIN-debug] POST   /inquiry/find_inquiry     --> github.com/lutasam/doctors/biz/handler.(*InquiryController).FindInquiry-fm (4 handlers)
-[GIN-debug] POST   /inquiry/find_doctor_inquiries --> github.com/lutasam/doctors/biz/handler.(*InquiryController).FindDoctorInquiries-fm (4 handlers)
-[GIN-debug] POST   /inquiry/find_user_inquiries --> github.com/lutasam/doctors/biz/handler.(*InquiryController).FindUserInquiries-fm (4 handlers)
-[GIN-debug] POST   /inquiry/find_doctor_suggestion_inquiries --> github.com/lutasam/doctors/biz/handler.(*InquiryController).FindDoctorSuggestionInquiries-fm (4 handlers)
+[GIN-debug] POST   /user/update_user_info    --> github.com/lutasam/doctors/biz/handler.(*UserController).UpdateUserInfo-fm (5 handlers)
+[GIN-debug] POST   /user/take_user_info      --> github.com/lutasam/doctors/biz/handler.(*UserController).TakeUserInfo-fm (5 handlers)
+[GIN-debug] POST   /user/find_users          --> github.com/lutasam/doctors/biz/handler.(*UserController).FindUsers-fm (5 handlers)
+[GIN-debug] POST   /user/delete_user         --> github.com/lutasam/doctors/biz/handler.(*UserController).DeleteUser-fm (5 handlers)
+[GIN-debug] POST   /hospital/find_hospitals  --> github.com/lutasam/doctors/biz/handler.(*HospitalController).FindHospitals-fm (5 handlers)
+[GIN-debug] POST   /hospital/take_hospital_info --> github.com/lutasam/doctors/biz/handler.(*HospitalController).TakeHospitalInfo-fm (5 handlers)
+[GIN-debug] POST   /hospital/find_hospital_department_names --> github.com/lutasam/doctors/biz/handler.(*HospitalController).FindHospitalDepartmentNames-fm (5 handlers)
+[GIN-debug] POST   /hospital/create_hospital --> github.com/lutasam/doctors/biz/handler.(*HospitalController).CreateHospital-fm (5 handlers)
+[GIN-debug] POST   /hospital/update_hospital_info --> github.com/lutasam/doctors/biz/handler.(*HospitalController).UpdateHospitalInfo-fm (5 handlers)
+[GIN-debug] POST   /hospital/delete_hospital --> github.com/lutasam/doctors/biz/handler.(*HospitalController).DeleteHospital-fm (5 handlers)
+[GIN-debug] POST   /hospital/update_hospital_rate_score --> github.com/lutasam/doctors/biz/handler.(*HospitalController).UpdateHospitalRateScore-fm (5 handlers)
+[GIN-debug] POST   /hospital/take_hospital_rank --> github.com/lutasam/doctors/biz/handler.(*HospitalController).TakeHospitalRank-fm (5 handlers)
+[GIN-debug] POST   /hospital/set_hospital_read_count --> github.com/lutasam/doctors/biz/handler.(*HospitalController).SetHospitalReadCount-fm (5 handlers)
+[GIN-debug] POST   /hospital/take_hospital_read_count --> github.com/lutasam/doctors/biz/handler.(*HospitalController).TakeHospitalReadCount-fm (5 handlers)
+[GIN-debug] POST   /doctor/take_doctor_info  --> github.com/lutasam/doctors/biz/handler.(*DoctorController).TakeDoctorInfo-fm (5 handlers)
+[GIN-debug] POST   /doctor/update_doctor_info --> github.com/lutasam/doctors/biz/handler.(*DoctorController).UpdateDoctorInfo-fm (5 handlers)
+[GIN-debug] POST   /doctor/find_doctors      --> github.com/lutasam/doctors/biz/handler.(*DoctorController).FindDoctors-fm (5 handlers)
+[GIN-debug] POST   /doctor/delete_doctor     --> github.com/lutasam/doctors/biz/handler.(*DoctorController).DeleteDoctor-fm (5 handlers)
+[GIN-debug] POST   /doctor/active_doctor     --> github.com/lutasam/doctors/biz/handler.(*DoctorController).ActiveDoctor-fm (5 handlers)
+[GIN-debug] POST   /doctor/find_hospital_doctors --> github.com/lutasam/doctors/biz/handler.(*DoctorController).FindHospitalDoctors-fm (5 handlers)
+[GIN-debug] POST   /doctor/update_doctor_rate_score --> github.com/lutasam/doctors/biz/handler.(*DoctorController).UpdateDoctorRateScore-fm (5 handlers)
+[GIN-debug] POST   /doctor/take_doctor_rank  --> github.com/lutasam/doctors/biz/handler.(*DoctorController).TakeDoctorRank-fm (5 handlers)
+[GIN-debug] POST   /doctor/set_doctor_read_count --> github.com/lutasam/doctors/biz/handler.(*DoctorController).SetDoctorReadCount-fm (5 handlers)
+[GIN-debug] POST   /doctor/take_doctor_read_count --> github.com/lutasam/doctors/biz/handler.(*DoctorController).TakeDoctorReadCount-fm (5 handlers)
+[GIN-debug] POST   /inquiry/create_inquiry   --> github.com/lutasam/doctors/biz/handler.(*InquiryController).CreateInquiry-fm (5 handlers)
+[GIN-debug] POST   /inquiry/delete_inquiry   --> github.com/lutasam/doctors/biz/handler.(*InquiryController).DeleteInquiry-fm (5 handlers)
+[GIN-debug] POST   /inquiry/upload_reply_suggestion --> github.com/lutasam/doctors/biz/handler.(*InquiryController).UploadReplySuggestion-fm (5 handlers)
+[GIN-debug] POST   /inquiry/find_inquiry_titles --> github.com/lutasam/doctors/biz/handler.(*InquiryController).FindInquiryTitles-fm (5 handlers)
+[GIN-debug] POST   /inquiry/find_inquiry     --> github.com/lutasam/doctors/biz/handler.(*InquiryController).FindInquiry-fm (5 handlers)
+[GIN-debug] POST   /inquiry/find_doctor_inquiries --> github.com/lutasam/doctors/biz/handler.(*InquiryController).FindDoctorInquiries-fm (5 handlers)
+[GIN-debug] POST   /inquiry/find_user_inquiries --> github.com/lutasam/doctors/biz/handler.(*InquiryController).FindUserInquiries-fm (5 handlers)
+[GIN-debug] POST   /inquiry/find_doctor_suggestion_inquiries --> github.com/lutasam/doctors/biz/handler.(*InquiryController).FindDoctorSuggestionInquiries-fm (5 handlers)
+[GIN-debug] POST   /file/upload_image        --> github.com/lutasam/doctors/biz/handler.(*FileController).UploadImage-fm (3 handlers)
+[GIN-debug] POST   /file/upload_file         --> github.com/lutasam/doctors/biz/handler.(*FileController).UploadFile-fm (3 handlers)
+[GIN-debug] POST   /file/download_file       --> github.com/lutasam/doctors/biz/handler.(*FileController).DownloadFile-fm (3 handlers)
+[GIN-debug] POST   /comment/add_comment      --> github.com/lutasam/doctors/biz/handler.(*CommentController).AddComment-fm (5 handlers)
+[GIN-debug] POST   /comment/find_comments    --> github.com/lutasam/doctors/biz/handler.(*CommentController).FindComments-fm (5 handlers)
 [GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
 Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
 [GIN-debug] Listening and serving HTTP on :8081
-[GIN] 2023/02/24 - 20:30:06 | 200 |     81.0626ms |   192.168.0.109 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 20:30:07 | 200 |    284.5551ms |   192.168.0.109 | POST     "/talk/get_talked_users"
-[GIN] 2023/02/24 - 20:33:24 | 200 |         3m16s |             ::1 | GET      "/talk/ws/10001_1619697591753523200"
-[GIN] 2023/02/24 - 20:33:25 | 200 |     53.1094ms |   192.168.0.109 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 20:33:25 | 200 |     160.596ms |   192.168.0.109 | POST     "/talk/get_talked_users"
-[GIN] 2023/02/24 - 20:33:44 | 200 |    1.3784962s |             ::1 | GET      "/talk/ws/10001_1619697591753523200"
-[GIN] 2023/02/24 - 20:35:43 | 200 |     55.4701ms |   192.168.0.109 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 20:35:43 | 200 |    107.6226ms |   192.168.0.109 | POST     "/talk/get_talked_users"
-[GIN] 2023/02/24 - 20:37:03 | 200 |     26.1831ms |   192.168.0.109 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 20:37:03 | 200 |     98.1617ms |   192.168.0.109 | POST     "/talk/get_talked_users"
-[GIN] 2023/02/24 - 20:37:09 | 200 |     23.5993ms |   192.168.0.109 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 20:37:09 | 200 |     92.1458ms |   192.168.0.109 | POST     "/talk/get_talked_users"
-[GIN] 2023/02/24 - 20:39:00 | 200 |         5m16s |             ::1 | GET      "/talk/ws/10001_1619697591753523200"
-[GIN] 2023/02/24 - 20:39:01 | 200 |     24.9465ms |   192.168.0.109 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 20:39:01 | 200 |     84.5223ms |   192.168.0.109 | POST     "/talk/get_talked_users"
-[GIN] 2023/02/24 - 20:39:02 | 200 |     23.2425ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 20:39:02 | 200 |    381.9621ms |       127.0.0.1 | POST     "/inquiry/find_inquiry_titles"
-[GIN] 2023/02/24 - 20:39:06 | 200 |     27.8593ms |   192.168.0.109 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 20:39:06 | 200 |     91.4906ms |   192.168.0.109 | POST     "/talk/get_talked_users"
-[GIN] 2023/02/24 - 20:39:43 | 200 |     37.6321ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 20:39:43 | 200 |    198.8589ms |       127.0.0.1 | POST     "/inquiry/find_inquiry_titles"
-[GIN] 2023/02/24 - 20:39:46 | 200 |     27.0905ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 20:39:46 | 200 |     84.5647ms |       127.0.0.1 | POST     "/talk/get_talked_users"
-[GIN] 2023/02/24 - 20:41:19 | 200 |         2m11s |             ::1 | GET      "/talk/ws/10001_1619697591753523200"
-[GIN] 2023/02/24 - 20:41:49 | 200 |     28.6931ms |   192.168.0.109 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 20:41:49 | 200 |     81.6887ms |   192.168.0.109 | POST     "/talk/get_talked_users"
-[GIN] 2023/02/24 - 20:41:49 | 200 |     82.5947ms |       127.0.0.1 | POST     "/talk/get_talked_users"
-[GIN] 2023/02/24 - 20:41:49 | 200 |     23.9705ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 20:43:54 | 200 |     23.0978ms |   192.168.0.109 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 20:43:54 | 200 |     81.8735ms |   192.168.0.109 | POST     "/talk/get_talked_users"
-[GIN] 2023/02/24 - 20:43:54 | 200 |     81.6267ms |       127.0.0.1 | POST     "/talk/get_talked_users"
-[GIN] 2023/02/24 - 20:43:55 | 200 |     24.3527ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 20:43:56 | 200 |         2m37s |             ::1 | GET      "/talk/ws/10001_1619697591753523200"
-[GIN] 2023/02/24 - 20:43:57 | 200 |     24.7569ms |   192.168.0.109 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 20:43:57 | 200 |     82.8671ms |   192.168.0.109 | POST     "/talk/get_talked_users"
-[GIN] 2023/02/24 - 20:44:05 | 200 |         4m16s |             ::1 | GET      "/talk/ws/10001_1619697591753523200"
-[GIN] 2023/02/24 - 20:44:05 | 200 |     24.3656ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 20:44:05 | 200 |     80.2593ms |       127.0.0.1 | POST     "/talk/get_talked_users"
-[GIN] 2023/02/24 - 20:44:55 | 200 |      23.071ms |   192.168.0.109 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 20:44:55 | 200 |     81.6436ms |   192.168.0.109 | POST     "/talk/get_talked_users"
-[GIN] 2023/02/24 - 20:44:56 | 200 |     81.5483ms |       127.0.0.1 | POST     "/talk/get_talked_users"
-[GIN] 2023/02/24 - 20:44:56 | 200 |     24.5671ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 20:45:01 | 200 |   54.3040674s |             ::1 | GET      "/talk/ws/10001_1619697591753523200"
-[GIN] 2023/02/24 - 20:45:01 | 200 |     24.2886ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 20:45:01 | 200 |    141.2182ms |       127.0.0.1 | POST     "/talk/get_talked_users"
-[GIN] 2023/02/24 - 20:45:06 | 200 |    1.8746646s |             ::1 | GET      "/talk/ws/10001_1619697591753523200"
-[GIN] 2023/02/24 - 20:45:20 | 200 |     24.7881ms |   192.168.0.109 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 20:45:20 | 200 |     85.9486ms |   192.168.0.109 | POST     "/talk/get_talked_users"
-[GIN] 2023/02/24 - 20:45:20 | 200 |     90.8994ms |       127.0.0.1 | POST     "/talk/get_talked_users"
-[GIN] 2023/02/24 - 20:45:20 | 200 |     26.5228ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 20:45:22 | 200 |   16.2224087s |             ::1 | GET      "/talk/ws/10001_1619697591753523200"
-[GIN] 2023/02/24 - 20:45:23 | 200 |     27.6997ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 20:45:23 | 200 |     87.2966ms |       127.0.0.1 | POST     "/talk/get_talked_users"
-[GIN] 2023/02/24 - 20:45:30 | 200 |   20.9326079s |             ::1 | GET      "/talk/ws/10001_1619697591753523200"
-[GIN] 2023/02/24 - 20:45:30 | 200 |         1m31s |             ::1 | GET      "/talk/ws/10001_1619697591753523200"
-[GIN] 2023/02/24 - 20:45:30 | 200 |     27.2846ms |   192.168.0.109 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 20:45:30 | 200 |     88.6267ms |   192.168.0.109 | POST     "/talk/get_talked_users"
-[GIN] 2023/02/24 - 20:46:04 | 200 |     25.9184ms |   192.168.0.109 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 20:46:04 | 200 |     84.5787ms |   192.168.0.109 | POST     "/talk/get_talked_users"
-[GIN] 2023/02/24 - 20:46:04 | 200 |     82.7343ms |       127.0.0.1 | POST     "/talk/get_talked_users"
-[GIN] 2023/02/24 - 20:46:04 | 200 |     27.8874ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 20:46:09 | 200 |    44.448607s |             ::1 | GET      "/talk/ws/10001_1619697591753523200"
-[GIN] 2023/02/24 - 20:46:09 | 200 |     26.8282ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 20:46:09 | 200 |     83.9405ms |       127.0.0.1 | POST     "/talk/get_talked_users"
-[GIN] 2023/02/24 - 20:46:28 | 200 |   56.8966536s |             ::1 | GET      "/talk/ws/10001_1619697591753523200"
-[GIN] 2023/02/24 - 20:46:29 | 200 |     25.7044ms |   192.168.0.109 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 20:46:29 | 200 |     86.1562ms |   192.168.0.109 | POST     "/talk/get_talked_users"
-[GIN] 2023/02/24 - 20:46:49 | 200 |    5.8645916s |             ::1 | GET      "/talk/ws/10001_1619697591753523200"
-[GIN] 2023/02/24 - 20:46:49 | 200 |     27.3552ms |   192.168.0.109 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 20:46:49 | 200 |     85.5175ms |   192.168.0.109 | POST     "/talk/get_talked_users"
-[GIN] 2023/02/24 - 20:47:29 | 200 |     26.2444ms |   192.168.0.109 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 20:47:29 | 200 |     86.9705ms |   192.168.0.109 | POST     "/talk/get_talked_users"
-[GIN] 2023/02/24 - 20:47:29 | 200 |     84.3608ms |       127.0.0.1 | POST     "/talk/get_talked_users"
-[GIN] 2023/02/24 - 20:47:29 | 200 |     26.9322ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 20:50:05 | 200 |     25.0506ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 20:50:05 | 200 |    188.2901ms |       127.0.0.1 | POST     "/inquiry/find_inquiry_titles"
-[GIN] 2023/02/24 - 20:55:36 | 200 |     27.3033ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 20:55:36 | 200 |    190.7321ms |       127.0.0.1 | POST     "/inquiry/find_inquiry_titles"
-[GIN] 2023/02/24 - 20:56:02 | 200 |    188.7903ms |       127.0.0.1 | POST     "/inquiry/find_inquiry_titles"
-[GIN] 2023/02/24 - 20:56:02 | 200 |     37.6865ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 20:56:23 | 200 |    185.9717ms |       127.0.0.1 | POST     "/inquiry/find_inquiry_titles"
-[GIN] 2023/02/24 - 20:56:23 | 200 |     27.1651ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 20:57:59 | 200 |        10m23s |             ::1 | GET      "/talk/ws/10001_1619697591753523200"
-[GIN] 2023/02/24 - 20:58:02 | 200 |     41.9978ms |   192.168.0.109 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 20:58:03 | 200 |    199.1942ms |   192.168.0.109 | POST     "/talk/get_talked_users"
-[GIN] 2023/02/24 - 20:58:39 | 200 |        12m28s |             ::1 | GET      "/talk/ws/10001_1619697591753523200"
-[GIN] 2023/02/24 - 20:58:39 | 200 |         11m5s |             ::1 | GET      "/talk/ws/10001_1619697591753523200"
-[GIN] 2023/02/24 - 20:58:40 | 200 |     25.2017ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 20:58:40 | 200 |    191.8214ms |       127.0.0.1 | POST     "/inquiry/find_inquiry_titles"
-[GIN] 2023/02/24 - 20:59:34 | 200 |     25.2556ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 20:59:34 | 200 |    189.7988ms |       127.0.0.1 | POST     "/inquiry/find_inquiry_titles"
-[GIN] 2023/02/24 - 21:02:35 | 200 |    188.7191ms |       127.0.0.1 | POST     "/inquiry/find_inquiry_titles"
-[GIN] 2023/02/24 - 21:02:35 | 200 |     26.9917ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:04:15 | 200 |     190.788ms |       127.0.0.1 | POST     "/inquiry/find_inquiry_titles"
-[GIN] 2023/02/24 - 21:04:15 | 200 |     26.8325ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:05:02 | 200 |     27.1505ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:05:02 | 200 |     28.4047ms |   192.168.0.109 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:05:02 | 200 |    185.2512ms |   192.168.0.109 | POST     "/talk/get_talked_users"
-[GIN] 2023/02/24 - 21:05:02 | 200 |    372.3639ms |       127.0.0.1 | POST     "/inquiry/find_inquiry_titles"
-[GIN] 2023/02/24 - 21:05:11 | 200 |     35.6003ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:05:11 | 200 |    202.2447ms |       127.0.0.1 | POST     "/inquiry/find_inquiry_titles"
-[GIN] 2023/02/24 - 21:11:44 | 200 |      45.027ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:11:44 | 200 |    189.0616ms |       127.0.0.1 | POST     "/inquiry/find_inquiry_titles"
-[GIN] 2023/02/24 - 21:13:11 | 200 |     26.7206ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:13:11 | 200 |    169.4043ms |       127.0.0.1 | POST     "/inquiry/find_inquiry_titles"
-[GIN] 2023/02/24 - 21:13:13 | 200 |     24.7326ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:18:33 | 200 |     50.1963ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:20:24 | 200 |     23.8219ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:20:32 | 200 |     23.3736ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:22:08 | 200 |     31.5086ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:22:08 | 200 |    204.1386ms |       127.0.0.1 | POST     "/inquiry/find_inquiry_titles"
-[GIN] 2023/02/24 - 21:22:55 | 200 |     33.8181ms |   192.168.0.109 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:22:55 | 200 |     187.172ms |   192.168.0.109 | POST     "/talk/get_talked_users"
-[GIN] 2023/02/24 - 21:23:24 | 200 |     27.0278ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:23:24 | 200 |     89.2248ms |       127.0.0.1 | POST     "/talk/get_talked_users"
-[GIN] 2023/02/24 - 21:23:34 | 200 |   38.7211874s |             ::1 | GET      "/talk/ws/10001_1619697591753523200"
-[GIN] 2023/02/24 - 21:23:35 | 200 |     26.0502ms |   192.168.0.109 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:23:35 | 200 |     96.8744ms |   192.168.0.109 | POST     "/talk/get_talked_users"
-[GIN] 2023/02/24 - 21:23:56 | 200 |   18.2052874s |             ::1 | GET      "/talk/ws/10001_1619697591753523200"
-[GIN] 2023/02/24 - 21:23:57 | 200 |     30.3817ms |   192.168.0.109 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:24:17 | 200 |     29.4477ms |   192.168.0.109 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:24:17 | 200 |    102.2271ms |   192.168.0.109 | POST     "/hospital/find_hospitals"
-[GIN] 2023/02/24 - 21:24:20 | 200 |     26.5907ms |   192.168.0.109 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:24:20 | 200 |    241.6177ms |   192.168.0.109 | POST     "/doctor/find_doctors"
-[GIN] 2023/02/24 - 21:24:22 | 200 |     29.4719ms |   192.168.0.109 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:24:22 | 200 |     182.406ms |   192.168.0.109 | POST     "/inquiry/find_inquiry_titles"
-[GIN] 2023/02/24 - 21:24:24 | 200 |     25.2915ms |   192.168.0.109 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:24:24 | 200 |     48.9517ms |   192.168.0.109 | POST     "/hospital/find_hospitals"
-[GIN] 2023/02/24 - 21:24:28 | 200 |     38.9138ms |   192.168.0.109 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:24:28 | 200 |    123.9119ms |   192.168.0.109 | POST     "/doctor/find_doctors"
-[GIN] 2023/02/24 - 21:24:31 | 200 |     26.2437ms |   192.168.0.109 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:24:32 | 200 |    297.3835ms |   192.168.0.109 | POST     "/doctor/take_doctor_info"
-[GIN] 2023/02/24 - 21:24:32 | 200 |    387.2077ms |   192.168.0.109 | POST     "/inquiry/find_doctor_inquiries"
-[GIN] 2023/02/24 - 21:24:35 | 200 |     26.6839ms |   192.168.0.109 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:24:35 | 200 |    199.6913ms |   192.168.0.109 | POST     "/inquiry/find_inquiry"
-[GIN] 2023/02/24 - 21:24:36 | 200 |    176.8199ms |   192.168.0.109 | POST     "/doctor/take_doctor_info"
-[GIN] 2023/02/24 - 21:24:39 | 200 |     151.191ms |   192.168.0.109 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:24:39 | 200 |    176.1139ms |   192.168.0.109 | POST     "/doctor/take_doctor_info"
-[GIN] 2023/02/24 - 21:24:39 | 200 |    246.2987ms |   192.168.0.109 | POST     "/inquiry/find_doctor_inquiries"
-[GIN] 2023/02/24 - 21:24:42 | 200 |     24.8733ms |   192.168.0.109 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:24:42 | 200 |     143.035ms |   192.168.0.109 | POST     "/inquiry/find_inquiry"
-[GIN] 2023/02/24 - 21:24:43 | 200 |    185.6031ms |   192.168.0.109 | POST     "/doctor/take_doctor_info"
-[GIN] 2023/02/24 - 21:24:54 | 200 |    157.0949ms |   192.168.0.109 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:24:54 | 200 |    166.7346ms |   192.168.0.109 | POST     "/doctor/take_doctor_info"
-[GIN] 2023/02/24 - 21:24:54 | 200 |    247.9252ms |   192.168.0.109 | POST     "/inquiry/find_doctor_inquiries"
-[GIN] 2023/02/24 - 21:24:57 | 200 |     25.6432ms |   192.168.0.109 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:24:57 | 200 |    148.0769ms |   192.168.0.109 | POST     "/inquiry/find_inquiry"
-[GIN] 2023/02/24 - 21:24:57 | 200 |    181.5248ms |   192.168.0.109 | POST     "/doctor/take_doctor_info"
-[GIN] 2023/02/24 - 21:24:58 | 200 |     25.7876ms |   192.168.0.109 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:24:58 | 200 |     47.9009ms |   192.168.0.109 | POST     "/hospital/find_hospitals"
-[GIN] 2023/02/24 - 21:25:00 | 200 |     24.3975ms |   192.168.0.109 | POST     "/hospital/take_hospital_info"
-[GIN] 2023/02/24 - 21:25:00 | 200 |    114.9589ms |   192.168.0.109 | POST     "/hospital/find_hospital_department_names"
-[GIN] 2023/02/24 - 21:25:00 | 200 |    168.0564ms |   192.168.0.109 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:25:00 | 200 |    606.7816ms |   192.168.0.109 | POST     "/doctor/find_hospital_doctors"
-[GIN] 2023/02/24 - 21:25:50 | 200 |     23.8518ms |   192.168.0.109 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:25:50 | 200 |    327.8622ms |   192.168.0.109 | POST     "/doctor/take_doctor_info"
-[GIN] 2023/02/24 - 21:25:51 | 200 |    414.2261ms |   192.168.0.109 | POST     "/inquiry/find_doctor_inquiries"
-[GIN] 2023/02/24 - 21:25:54 | 200 |     24.2014ms |   192.168.0.109 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:25:54 | 200 |    217.3557ms |   192.168.0.109 | POST     "/inquiry/find_inquiry"
-[GIN] 2023/02/24 - 21:25:54 | 200 |    191.1725ms |   192.168.0.109 | POST     "/doctor/take_doctor_info"
-[GIN] 2023/02/24 - 21:26:32 | 200 |     23.3422ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:26:33 | 200 |    281.4355ms |       127.0.0.1 | POST     "/inquiry/find_inquiry_titles"
-[GIN] 2023/02/24 - 21:26:36 | 200 |    170.0798ms |       127.0.0.1 | POST     "/inquiry/find_inquiry"
-[GIN] 2023/02/24 - 21:26:37 | 200 |     28.4662ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:26:37 | 200 |    186.8365ms |       127.0.0.1 | POST     "/doctor/take_doctor_info"
-[GIN] 2023/02/24 - 21:29:05 | 200 |     23.0625ms |   192.168.0.109 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:29:05 | 200 |    205.1558ms |   192.168.0.109 | POST     "/inquiry/find_inquiry"
-[GIN] 2023/02/24 - 21:29:05 | 200 |    188.1759ms |   192.168.0.109 | POST     "/doctor/take_doctor_info"
-[GIN] 2023/02/24 - 21:29:05 | 200 |    144.1944ms |       127.0.0.1 | POST     "/inquiry/find_inquiry"
-[GIN] 2023/02/24 - 21:29:06 | 200 |     24.2495ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:29:06 | 200 |     166.976ms |       127.0.0.1 | POST     "/doctor/take_doctor_info"
-[GIN] 2023/02/24 - 21:29:10 | 200 |    110.2407ms |       127.0.0.1 | POST     "/talk/add_talked_user"
-[GIN] 2023/02/24 - 21:29:11 | 200 |     80.1706ms |       127.0.0.1 | POST     "/talk/get_talked_users"
-[GIN] 2023/02/24 - 21:29:11 | 200 |     23.6247ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:29:14 | 200 |         5m47s |             ::1 | GET      "/talk/ws/10001_1619697591753523200"
-[GIN] 2023/02/24 - 21:29:15 | 200 |     24.9631ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:29:15 | 200 |     80.7184ms |       127.0.0.1 | POST     "/talk/get_talked_users"
-[GIN] 2023/02/24 - 21:29:19 | 200 |     29.3563ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:29:20 | 200 |    150.5998ms |       127.0.0.1 | POST     "/inquiry/find_inquiry"
-[GIN] 2023/02/24 - 21:29:20 | 200 |    170.0186ms |       127.0.0.1 | POST     "/doctor/take_doctor_info"
-[GIN] 2023/02/24 - 21:29:22 | 200 |    119.6687ms |       127.0.0.1 | POST     "/doctor/find_doctors"
-[GIN] 2023/02/24 - 21:29:22 | 200 |     25.9389ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:29:24 | 200 |    170.6176ms |       127.0.0.1 | POST     "/doctor/take_doctor_info"
-[GIN] 2023/02/24 - 21:29:24 | 200 |     28.0099ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:29:24 | 200 |    181.9742ms |       127.0.0.1 | POST     "/inquiry/find_doctor_inquiries"
-[GIN] 2023/02/24 - 21:29:27 | 200 |     53.9281ms |       127.0.0.1 | POST     "/talk/add_talked_user"
-[GIN] 2023/02/24 - 21:29:27 | 200 |    132.1166ms |       127.0.0.1 | POST     "/talk/get_talked_users"
-[GIN] 2023/02/24 - 21:29:27 | 200 |     22.7295ms |       127.0.0.1 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:29:43 | 200 |    15.033527s |             ::1 | GET      "/talk/ws/10003_1619697591753523200"
-[GIN] 2023/02/24 - 21:29:46 | 200 |    2.5081405s |             ::1 | GET      "/talk/ws/10003_1619697591753523200"
-[GIN] 2023/02/24 - 21:29:54 | 200 |    7.7463056s |             ::1 | GET      "/talk/ws/10003_1619697591753523200"
-[GIN] 2023/02/24 - 21:30:02 | 200 |     23.2787ms |   192.168.0.109 | POST     "/user/take_user_info"
-[GIN] 2023/02/24 - 21:30:02 | 200 |     81.2452ms |   192.168.0.109 | POST     "/talk/get_talked_users"
-[GIN] 2023/02/24 - 21:30:07 | 200 |   13.5698849s |             ::1 | GET      "/talk/ws/10001_1619697591753523200"
-[GIN] 2023/02/24 - 21:30:16 | 200 |    8.9348054s |             ::1 | GET      "/talk/ws/10003_1619697591753523200"
-[GIN] 2023/02/24 - 21:30:30 | 200 |   26.5567782s |             ::1 | GET      "/talk/ws/10001_1619697591753523200"
-[GIN] 2023/02/24 - 21:30:30 | 200 |   13.3629824s |             ::1 | GET      "/talk/ws/10001_1619697591753523200"

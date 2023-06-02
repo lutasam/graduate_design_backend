@@ -56,3 +56,27 @@ func (ins *DepartmentDal) FindHospitalDepartments(c *gin.Context, hospitalID uin
 	}
 	return departments, nil
 }
+
+func (ins *DepartmentDal) CreateDepartment(c *gin.Context, department *model.Department) error {
+	err := repository.GetDB().WithContext(c).Table(department.TableName()).Create(department).Error
+	if err != nil {
+		return common.DATABASEERROR
+	}
+	return nil
+}
+
+func (ins *DepartmentDal) DeleteDepartment(c *gin.Context, departmentID uint64) error {
+	err := repository.GetDB().WithContext(c).Table(model.Department{}.TableName()).Where("id = ?", departmentID).Delete(&model.Department{}).Error
+	if err != nil {
+		return common.DATABASEERROR
+	}
+	return nil
+}
+
+func (ins *DepartmentDal) DeleteDepartmentsByHospitalID(c *gin.Context, hospitalID uint64) error {
+	err := repository.GetDB().WithContext(c).Table(model.Department{}.TableName()).Where("hospital_id = ?", hospitalID).Delete(&model.Department{}).Error
+	if err != nil {
+		return common.DATABASEERROR
+	}
+	return nil
+}

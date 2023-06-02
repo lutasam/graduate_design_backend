@@ -5,14 +5,15 @@ import (
 )
 
 const (
-	ISSUER            = "LUTASAM"                          // jwt issuer
-	PASSWORDSALT      = "astaxie12798akljzmknm.ahkjkljl;k" // use only for password encryption
-	OTHERSECRETSALT   = "9871267812345mn812345xyz"         // user for other encryption
-	EXPIRETIME        = 86400000                           // jwt expiration time. 1 day's second
-	REDISEXPIRETIME   = 24 * 3600 * time.Second            // redis normal key expire time, refers to one day
-	ACTIVECODEEXPTIME = 300 * time.Second                  // active code expiration time. 5 min
-	DEFAULTAVATARURL  = "http://img.duoziwang.com/2018/20/08111043560274.jpg"
-	MAXIMGSPACE       = 1024 * 1024 * 1 // img upload should be less than 1 MB
+	ISSUER               = "LUTASAM"                          // jwt issuer
+	PASSWORDSALT         = "astaxie12798akljzmknm.ahkjkljl;k" // use only for password encryption
+	OTHERSECRETSALT      = "9871267812345mn812345xyz"         // user for other encryption
+	EXPIRETIME           = 86400000                           // jwt expiration time. 1 day's second
+	REDISEXPIRETIME      = 24 * 3600 * time.Second            // redis normal key expire time, refers to one day
+	ACTIVECODEEXPTIME    = 300 * time.Second                  // active code expiration time. 5 min
+	DEFAULTAVATARURL     = "http://img.duoziwang.com/2018/20/08111043560274.jpg"
+	MAXIMGSPACE          = 1024 * 1024 * 1 // img upload should be less than 1 MB
+	ROBOTDEFAULTRESPONSE = "智能医生功能还未上线，请稍后尝试~"
 )
 
 const (
@@ -28,8 +29,20 @@ const (
 )
 
 const (
-	TALKEDUSERLISTSUFFIX = "_talked_user_list"
-	ACTIVECODESUFFIX     = "_active_code"
+	TALKEDUSERLISTSUFFIX       = "_talked_user_list"
+	ACTIVECODESUFFIX           = "_active_code"
+	USER_ONLINE                = "user_online"
+	HOSPITAL_RATED             = "hospital_rated_"
+	DOCTOR_RATED               = "doctor_rated_"
+	GPT2_ANSWERS               = "gpt2_answers"
+	HOSPITAL_READ_COUNT_SUFFIX = "_hospital_read_count"
+	DOCTOR_READ_COUNT_SUFFIX   = "_doctor_read_count"
+	USERINFOIDSUFFIX           = "_user_id"
+)
+
+const (
+	AI_DOCTOR_NAME   = "小顾"
+	AI_DOCTOR_AVATAR = "http://img.duoziwang.com/2018/20/08111043560274.jpg"
 )
 
 type CharacterType int
@@ -226,6 +239,7 @@ type MessageType int
 const (
 	NORMAL  MessageType = iota + 1 // 正常对话
 	HISTORY                        // 获取历史信息
+	AI                             // 请求机器人回答
 )
 
 func (m MessageType) Int() int {
@@ -234,6 +248,8 @@ func (m MessageType) Int() int {
 		return 1
 	case HISTORY:
 		return 2
+	case AI:
+		return 3
 	default:
 		return int(m)
 	}

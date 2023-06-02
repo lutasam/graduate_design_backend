@@ -11,7 +11,9 @@ import (
 var mongoDB *mongo.Client
 
 func init() {
-	clientOptions := options.Client().ApplyURI(fmt.Sprintf("mongodb://%s",
+	clientOptions := options.Client().ApplyURI(fmt.Sprintf("mongodb://%s:%s@%s",
+		utils.GetConfigString("mongo.user"),
+		utils.GetConfigString("mongo.password"),
 		utils.GetConfigString("mongo.address")),
 	)
 	var err error

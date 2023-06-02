@@ -8,6 +8,7 @@ var (
 	departmentIDGenerator *snowflake.Node
 	inquiryIDGenerator    *snowflake.Node
 	doctorIDGenerator     *snowflake.Node
+	fileIDGenerator       *snowflake.Node
 )
 
 func init() {
@@ -36,6 +37,11 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	fileIDGenerator, err = snowflake.NewNode(600)
+	if err != nil {
+		panic(err)
+	}
 }
 
 func GenerateUserID() uint64 {
@@ -56,4 +62,8 @@ func GenerateInquiryID() uint64 {
 
 func GenerateDoctorID() uint64 {
 	return uint64(inquiryIDGenerator.Generate().Int64())
+}
+
+func GenerateFileID() uint64 {
+	return uint64(fileIDGenerator.Generate().Int64())
 }

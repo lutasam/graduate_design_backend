@@ -107,9 +107,11 @@ func (ins *LoginService) ActiveUser(c *gin.Context, req *bo.ActiveUserRequest) (
 	if req.CharacterType == common.DOCTOR.Int() {
 		doctorID := utils.GenerateDoctorID()
 		err = dal.GetDoctorDal().CreateDoctor(c, &model.Doctor{
-			ID:       doctorID,
-			UserID:   user.ID,
-			IsActive: false,
+			ID:             doctorID,
+			UserID:         user.ID,
+			IsActive:       false,
+			RatePeopleNum:  0,
+			RateTotalScore: 0,
 		})
 		if err != nil {
 			return nil, err

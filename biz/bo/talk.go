@@ -21,9 +21,18 @@ type SendMessageRequest struct {
 	UserName    string `json:"user_name"`
 	UserAvatar  string `json:"user_avatar"`
 	Content     string `json:"content"`
+	ImageURL    string `json:"image_url"`
 }
 
 type SendMessageResponse struct {
 	Total    int             `json:"total"`
 	Messages []*vo.MessageVO `json:"messages"`
 }
+
+type SetUserOnlineRequest struct{}
+
+type SetUserOnlineResponse struct{}
+
+type SetUserOfflineRequest struct{}
+
+type SetUserOfflineResponse struct{}

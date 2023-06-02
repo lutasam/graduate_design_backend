@@ -2,6 +2,7 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin/binding"
 	"github.com/lutasam/doctors/biz/bo"
 	"github.com/lutasam/doctors/biz/common"
 	"github.com/lutasam/doctors/biz/service"
@@ -22,6 +23,7 @@ func RegisterUserRouter(r *gin.RouterGroup) {
 
 func (ins *UserController) TakeUserInfo(c *gin.Context) {
 	req := &bo.TakeUserInfoRequest{}
+	err := c.ShouldBindBodyWith(req, binding.JSON)
 	resp, err := service.GetUserService().TakeUserInfo(c, req)
 	if err != nil {
 		utils.ResponseError(c, err)
@@ -32,7 +34,7 @@ func (ins *UserController) TakeUserInfo(c *gin.Context) {
 
 func (ins *UserController) UpdateUserInfo(c *gin.Context) {
 	req := &bo.UpdateUserInfoRequest{}
-	err := c.ShouldBind(req)
+	err := c.ShouldBindBodyWith(req, binding.JSON)
 	if err != nil {
 		utils.ResponseClientError(c, common.USERINPUTERROR)
 		return
@@ -47,7 +49,7 @@ func (ins *UserController) UpdateUserInfo(c *gin.Context) {
 
 func (ins *UserController) FindUsers(c *gin.Context) {
 	req := &bo.FindUsersRequest{}
-	err := c.ShouldBind(req)
+	err := c.ShouldBindBodyWith(req, binding.JSON)
 	if err != nil {
 		utils.ResponseClientError(c, common.USERINPUTERROR)
 		return
@@ -62,7 +64,7 @@ func (ins *UserController) FindUsers(c *gin.Context) {
 
 func (ins *UserController) DeleteUser(c *gin.Context) {
 	req := &bo.DeleteUserRequest{}
-	err := c.ShouldBind(req)
+	err := c.ShouldBindBodyWith(req, binding.JSON)
 	if err != nil {
 		utils.ResponseClientError(c, common.USERINPUTERROR)
 		return

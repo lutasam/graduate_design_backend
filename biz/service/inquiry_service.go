@@ -46,6 +46,16 @@ func (ins *InquiryService) CreateInquiry(c *gin.Context, req *bo.CreateInquiryRe
 	if err != nil {
 		return nil, err
 	}
+
+	// 将记录插入es中
+	err = utils.InsertInquiryToES(&model.InquiryES{
+		InquiryID: inquiry.ID,
+		Title:     inquiry.DiseaseName,
+		Describe:  inquiry.Description,
+	})
+	if err != nil {
+		return nil, err
+	}
 	return &bo.CreateInquiryResponse{}, nil
 }
 

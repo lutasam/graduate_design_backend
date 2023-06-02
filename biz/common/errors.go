@@ -125,4 +125,24 @@ var (
 		ErrorType:   CLIENTERRORCODE,
 		ErrorString: "不能删除管理员，请先将管理员的权限让出并降级成普通用户",
 	}
+	SENSITIVEINPUT = Error{
+		ErrorCode:   100021,
+		ErrorType:   CLIENTERRORCODE,
+		ErrorString: "您的输入有敏感信息，请注意文明发言哦~",
+	}
+	CHATBOTERROR = Error{
+		ErrorCode:   100022,
+		ErrorType:   SERVERERRORCODE,
+		ErrorString: "智能机器人正在休息中，请稍后再试哦~",
+	}
+	USERHASRATED = Error{
+		ErrorCode:   100023,
+		ErrorType:   CLIENTERRORCODE,
+		ErrorString: "您已经打过分了哦~感谢您的支持!",
+	}
+	ELASTICSEARCHERROR = Error{
+		ErrorCode:   100024,
+		ErrorType:   SERVERERRORCODE,
+		ErrorString: "ElasticSearch出现未知问题，请通知管理员修复!",
+	}
 )
